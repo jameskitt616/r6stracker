@@ -4,7 +4,7 @@ This is an React Native Android/(iOS not implemented) Tracker App project for To
 
 ## Getting Started
 
-- git clone git@gitlab.com:jameskitt616/r6stracker.git
+    git clone git@gitlab.com:jameskitt616/r6stracker.git
 
 ### Prerequisites
 
