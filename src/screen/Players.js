@@ -9,9 +9,9 @@ import {
     Alert,
 } from 'react-native';
 import {getAllPlayers, deletePlayer} from '../Controller/PlayerController';
-import {SearchBar} from 'react-native-elements';
+import { SearchBar } from 'react-native-elements';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faPen, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
 export default class Players extends Component {
 
@@ -79,7 +79,7 @@ export default class Players extends Component {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
                 <SearchBar round editable={true} value={this.state.searchTxt} onChangeText={this.updateSearch}
-                           placeholder='Search Users'/>
+                           placeholder='Search Players'/>
             </View>
         </View>;
     };
@@ -99,20 +99,12 @@ export default class Players extends Component {
                                       renderItem={({item}) => (
                                           <View style={{backgroundColor: 'white', padding: 20}}>
                                               <Text>Name: {item.name}</Text>
-                                              <Text>BDay: {item.birthday.getDay() + '/' + item.birthday.getMonth() + '/' + item.birthday.getFullYear() + ' - ' + item.birthday.toString()}</Text>
                                               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                                  <TouchableOpacity
-                                                      style={{alignItems: 'flex-start', marginTop: 5, marginLeft: 10}}
-                                                      onPress={() => this.props.navigation.navigate('Edit User', {
-                                                          userId: item.id,
-                                                      })}>
-                                                      <FontAwesomeIcon icon={ faPen } />
-                                                  </TouchableOpacity>
                                                   <TouchableOpacity
                                                       style={{alignItems: 'flex-start', marginTop: 5, marginLeft: 10}}
                                                       onPress={() => Alert.alert(
                                                           'Warning',
-                                                          `Would you like to delete user: ${item.name} ?`,
+                                                          `Would you like to remove player: ${item.name} ?`,
                                                           [
                                                               {
                                                                   text: 'Cancel',
