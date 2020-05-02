@@ -8,18 +8,18 @@ import {
     Button,
     Alert,
 } from 'react-native';
-// import {getAllPlayers, deletePlayer} from '../Controller/PlayerController';
+import {getAllPlayers, deletePlayer} from '../Controller/PlayerController';
 import {SearchBar} from 'react-native-elements';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faBars, faPen, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 
-export default class Masterdata extends Component {
+export default class Players extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            realm: getAllUsers(),
+            realm: getAllPlayers(),
             refreshing: false,
             searchTxt: null,
             temp: [],
@@ -28,7 +28,7 @@ export default class Masterdata extends Component {
 
     componentDidMount() {
 
-        this.setState({temp: getAllUsers()});
+        this.setState({temp: getAllPlayers()});
     }
 
     handleRefresh = () => {
@@ -36,7 +36,7 @@ export default class Masterdata extends Component {
         this.setState({
             // refreshing: true,
         }, () => {
-            getAllUsers();
+            getAllPlayers();
         });
     };
 
@@ -47,11 +47,11 @@ export default class Masterdata extends Component {
         //     realm: realm.slice().filter(realm => realm.id !== user.id),
         // });
 
-        deleteUser(user);
+        deletePlayer(user);
 
         this.setState({
-            realm: getAllUsers(),
-            temp: getAllUsers(),
+            realm: getAllPlayers(),
+            temp: getAllPlayers(),
         });
     };
 
@@ -59,7 +59,7 @@ export default class Masterdata extends Component {
         this.setState({searchTxt}, () => {
             if ('' === searchTxt) {
                 this.setState({
-                    realm: getAllUsers(),
+                    realm: getAllPlayers(),
                 });
             } else {
                 this.setState({
@@ -80,11 +80,6 @@ export default class Masterdata extends Component {
             <View style={{flex: 1}}>
                 <SearchBar round editable={true} value={this.state.searchTxt} onChangeText={this.updateSearch}
                            placeholder='Search Users'/>
-                <View style={{alignItems: 'center'}}>
-                    <Button title="Create User"
-                            onPress={() => this.props.navigation.navigate('Create User')}
-                    />
-                </View>
             </View>
         </View>;
     };
@@ -93,10 +88,6 @@ export default class Masterdata extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flex: 1}}>
-                    <TouchableOpacity style={{alignItems: 'flex-start', marginTop: 5, marginLeft: 10}}
-                                      onPress={this.props.navigation.openDrawer}>
-                        <FontAwesomeIcon icon={ faBars } />
-                    </TouchableOpacity>
                     <View style={{flex: 1}}>
                         <View style={{flex: 1, alignItems: 'center'}}>
                             <FlatList style={{flex: 1, width: '100%'}}

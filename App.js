@@ -6,6 +6,8 @@ import SearchPlayer from './src/screen/SearchPlayer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
+import { Buffer } from 'buffer';
+global.Buffer = Buffer;
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
