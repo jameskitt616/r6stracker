@@ -20,7 +20,7 @@ export default function App() {
               headerShown: false
           }} />
           <Stack.Screen name="Player" component={PlayerStack} />
-          <Stack.Screen name="SearchPlayer" component={SearchPlayer} />
+          <Stack.Screen name="Search Player" component={SearchPlayer} />
         </Stack.Navigator>
       </NavigationContainer>
   );
@@ -28,8 +28,8 @@ export default function App() {
 
 function PlayerStack() {
   return (
-      <Tab.Navigator initialRouteName="PlayerOverview">
-        <Tab.Screen name="PlayerOverview" component={Player} />
+      <Tab.Navigator initialRouteName="Player Overview">
+        <Tab.Screen name="Player Overview" component={Player} />
       </Tab.Navigator>
   );
 }

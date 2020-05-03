@@ -5,13 +5,12 @@ import {
     FlatList,
     TouchableOpacity,
     StyleSheet,
-    Button,
     Alert,
 } from 'react-native';
 import {getAllPlayers, deletePlayer} from '../Controller/PlayerController';
 import { SearchBar } from 'react-native-elements';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 
 export default class Players extends Component {
 
@@ -79,7 +78,13 @@ export default class Players extends Component {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
                 <SearchBar round editable={true} value={this.state.searchTxt} onChangeText={this.updateSearch}
-                           placeholder='Search Players'/>
+                           placeholder='Search players'/>
+                <View>
+                    <TouchableOpacity style={{backgroundColor: '#232321', padding: 10, margin: 5, borderRadius: 5, alignItems: 'center'}}
+                                      onPress={() => this.props.navigation.navigate('Search Player')}>
+                        <FontAwesomeIcon icon={faUserPlus} size={30} />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>;
     };
@@ -89,7 +94,7 @@ export default class Players extends Component {
             <View style={styles.container}>
                 <View style={{flex: 1}}>
                     <View style={{flex: 1}}>
-                        <View style={{flex: 1, alignItems: 'center'}}>
+                        <View style={{flex: 1, alignItems: 'center', backgroundColor: '#3d3c3b'}}>
                             <FlatList style={{flex: 1, width: '100%'}}
                                       data={this.state.realm}
                                       refreshing={this.state.refreshing}
@@ -97,7 +102,7 @@ export default class Players extends Component {
                                       ListHeaderComponent={this.renderListHeader}
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) => (
-                                          <View style={{backgroundColor: 'white', padding: 20}}>
+                                          <View style={{padding: 20}}>
                                               <Text>Name: {item.name}</Text>
                                               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                                   <TouchableOpacity
