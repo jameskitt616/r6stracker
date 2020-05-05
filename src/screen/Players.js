@@ -8,9 +8,8 @@ import {
     Alert,
 } from 'react-native';
 import {getAllPlayers, deletePlayer} from '../Controller/PlayerController';
-import { SearchBar } from 'react-native-elements';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faTimesCircle, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faTimesCircle, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons';
 
 export default class Players extends Component {
 
@@ -73,7 +72,7 @@ export default class Players extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flex: 1}}>
-                    <View style={{flexDirection: 'row', backgroundColor: '#77736f'}}>
+                    <View style={{flexDirection: 'row', backgroundColor: '#757575'}}>
                         <TouchableOpacity style={{marginTop: 7, marginBottom: 5, marginLeft: 10}}
                                           onPress={this.props.navigation.openDrawer}>
                             <FontAwesomeIcon icon={ faBars } size={25} />

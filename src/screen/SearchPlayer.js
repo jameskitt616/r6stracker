@@ -14,6 +14,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faBars, faPen} from '@fortawesome/free-solid-svg-icons';
 import {getAllPlayers} from '../Controller/PlayerController';
 import {Picker} from '@react-native-community/picker';
+import { API_KEY } from 'react-native-dotenv'
 
 export default class SearchPlayer extends Component {
 
@@ -40,39 +41,25 @@ export default class SearchPlayer extends Component {
 
     updateSearch = (searchTxt) => {
 
-        fetch(`https://r6.apitab.com/search/${this.state.platform}/${searchTxt}`, {
-            method: 'GET',
-        })
-            .then(response => response.json())
-            .then((responseJson) => {
-                console.log('getting data from fetch', responseJson);
-                setTimeout(() => {
-                    this.setState({
-                        loading: false,
-                        dataSource: responseJson,
-                    });
-                }, 10000);
+        setTimeout(() => {
+            console.log(searchTxt)
+        }, 1000);
 
-            })
-            .catch(error => ToastAndroid.show(error));
-
-        // this.setState({searchTxt}, () => {
-        //     if ('' === searchTxt) {
-        //         this.setState({
-        //             realm: getAllPlayers(),
-        //         });
-        //     } else {
-        //         this.setState({
-        //             realm: this.state.temp.filter(function (user) {
-        //                 if (user.name.toLowerCase().includes(searchTxt.toLowerCase())) {
-        //                     return user.name;
-        //                 }
-        //             }).map(function (users) {
-        //                 return users;
-        //             }),
-        //         });
-        //     }
-        // });
+        // fetch(`https://r6.apitab.com/search/${this.state.platform}/${searchTxt}?cid=${API_KEY}`, {
+        //     method: 'GET',
+        // })
+        //     .then(response => response.json())
+        //     .then((responseJson) => {
+        //         console.log('getting data from fetch', responseJson);
+        //         // setTimeout(() => {
+        //         //     this.setState({
+        //         //         loading: false,
+        //         //         dataSource: responseJson,
+        //         //     });
+        //         // }, 10000);
+        //
+        //     })
+        //     .catch(error => ToastAndroid.show(error));
     };
 
     updatePlatform = (platform) => {
@@ -107,7 +94,7 @@ export default class SearchPlayer extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flex: 1}}>
-                    <View style={{flexDirection: 'row', backgroundColor: '#77736f'}}>
+                    <View style={{flexDirection: 'row', backgroundColor: '#757575'}}>
                         <TouchableOpacity style={{marginTop: 7, marginBottom: 5, marginLeft: 10}}
                                           onPress={this.props.navigation.openDrawer}>
                             <FontAwesomeIcon icon={ faBars } size={25} />
