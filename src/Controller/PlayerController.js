@@ -33,10 +33,10 @@ export const createPlayer = (User) => {
     if (User) {
         realm.write(() => {
             realm.create('user', User.getData());
-            ToastAndroid.show('User has been created', 3);
+            ToastAndroid.show('User has been added', 3);
         });
     } else {
-        ToastAndroid.show('Username or age is empty', 3);
+        ToastAndroid.show('Something went wrong', 3);
     }
 };
 

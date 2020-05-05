@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faPen} from '@fortawesome/free-solid-svg-icons';
+import {faBars, faPen} from '@fortawesome/free-solid-svg-icons';
 import {getAllPlayers} from '../Controller/PlayerController';
 import {Picker} from '@react-native-community/picker';
 
@@ -25,7 +25,7 @@ export default class SearchPlayer extends Component {
             refreshing: false,
             searchTxt: null,
             temp: [],
-            platform: '',
+            platform: 'uplay',
         };
     }
 
@@ -40,7 +40,9 @@ export default class SearchPlayer extends Component {
 
     updateSearch = (searchTxt) => {
 
-        fetch('https://r6.apitab.com/search/uplay/jameskitt616')
+        fetch(`https://r6.apitab.com/search/${this.state.platform}/${searchTxt}`, {
+            method: 'GET',
+        })
             .then(response => response.json())
             .then((responseJson) => {
                 console.log('getting data from fetch', responseJson);
@@ -92,9 +94,9 @@ export default class SearchPlayer extends Component {
                         style={{height: 50, width: '100%', margin: 5}}
                         onValueChange={(itemValue, itemIndex) => this.updatePlatform(itemValue)}
                     >
-                        <Picker.Item label="PC" value="windows"/>
-                        <Picker.Item label="PlayStation" value="playstation"/>
-                        <Picker.Item label="Xbox" value="xbox"/>
+                        <Picker.Item label="PC" value="uplay"/>
+                        <Picker.Item label="PlayStation" value="psn"/>
+                        <Picker.Item label="Xbox" value="xbl"/>
                     </Picker>
                 </View>
             </View>
@@ -105,6 +107,12 @@ export default class SearchPlayer extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flex: 1}}>
+                    <View style={{flexDirection: 'row', backgroundColor: '#77736f'}}>
+                        <TouchableOpacity style={{marginTop: 7, marginBottom: 5, marginLeft: 10}}
+                                          onPress={this.props.navigation.openDrawer}>
+                            <FontAwesomeIcon icon={ faBars } size={25} />
+                        </TouchableOpacity>
+                    </View>
                     <View style={{flex: 1}}>
                         <View style={{flex: 1, alignItems: 'center'}}>
                             <FlatList style={{flex: 1, width: '100%'}}

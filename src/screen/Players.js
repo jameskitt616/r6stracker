@@ -10,7 +10,7 @@ import {
 import {getAllPlayers, deletePlayer} from '../Controller/PlayerController';
 import { SearchBar } from 'react-native-elements';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faTimesCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons'
 
 export default class Players extends Component {
 
@@ -20,14 +20,7 @@ export default class Players extends Component {
         this.state = {
             realm: getAllPlayers(),
             refreshing: false,
-            searchTxt: null,
-            temp: [],
         };
-    }
-
-    componentDidMount() {
-
-        this.setState({temp: getAllPlayers()});
     }
 
     handleRefresh = () => {
@@ -50,40 +43,27 @@ export default class Players extends Component {
 
         this.setState({
             realm: getAllPlayers(),
-            temp: getAllPlayers(),
-        });
-    };
-
-    updateSearch = (searchTxt) => {
-        this.setState({searchTxt}, () => {
-            if ('' === searchTxt) {
-                this.setState({
-                    realm: getAllPlayers(),
-                });
-            } else {
-                this.setState({
-                    realm: this.state.temp.filter(function (user) {
-                        if (user.name.toLowerCase().includes(searchTxt.toLowerCase())) {
-                            return user.name;
-                        }
-                    }).map(function (users) {
-                        return users;
-                    }),
-                });
-            }
         });
     };
 
     renderListHeader = () => {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
-                <SearchBar round editable={true} value={this.state.searchTxt} onChangeText={this.updateSearch}
-                           placeholder='Search players'/>
                 <View>
-                    <TouchableOpacity style={{backgroundColor: '#232321', padding: 10, margin: 5, borderRadius: 5, alignItems: 'center'}}
+                    <TouchableOpacity style={{backgroundColor: '#232321', padding: 10, marginTop: 10, marginLeft: 5, marginRight: 5, borderRadius: 5, alignItems: 'center'}}
                                       onPress={() => this.props.navigation.navigate('Search Player')}>
                         <FontAwesomeIcon icon={faUserPlus} size={30} />
                     </TouchableOpacity>
+                </View>
+            </View>
+        </View>;
+    };
+
+    noContent = () => {
+        return <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{flex: 1}}>
+                <View style={{backgroundColor: '#232321', padding: 10, marginTop: 10, marginLeft: 5, marginRight: 5, borderRadius: 5, alignItems: 'center'}}>
+                    <Text>No Players added</Text>
                 </View>
             </View>
         </View>;
@@ -93,23 +73,30 @@ export default class Players extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flex: 1}}>
+                    <View style={{flexDirection: 'row', backgroundColor: '#77736f'}}>
+                        <TouchableOpacity style={{marginTop: 7, marginBottom: 5, marginLeft: 10}}
+                                          onPress={this.props.navigation.openDrawer}>
+                            <FontAwesomeIcon icon={ faBars } size={25} />
+                        </TouchableOpacity>
+                    </View>
                     <View style={{flex: 1}}>
                         <View style={{flex: 1, alignItems: 'center', backgroundColor: '#3d3c3b'}}>
                             <FlatList style={{flex: 1, width: '100%'}}
                                       data={this.state.realm}
                                       refreshing={this.state.refreshing}
                                       onRefresh={this.handleRefresh}
+                                      ListEmptyComponent={this.noContent}
                                       ListHeaderComponent={this.renderListHeader}
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) => (
-                                          <View style={{padding: 20}}>
-                                              <Text>Name: {item.name}</Text>
+                                          <View style={{padding: 30}}>
+                                              <Text>Name: {item.p_name}</Text>
                                               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                                   <TouchableOpacity
                                                       style={{alignItems: 'flex-start', marginTop: 5, marginLeft: 10}}
                                                       onPress={() => Alert.alert(
                                                           'Warning',
-                                                          `Would you like to remove player: ${item.name} ?`,
+                                                          `Would you like to remove player: ${item.p_name} ?`,
                                                           [
                                                               {
                                                                   text: 'Cancel',
@@ -138,7 +125,7 @@ export default class Players extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#3d3c3b',
     },
     text: {
         color: 'black',
