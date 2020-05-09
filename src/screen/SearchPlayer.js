@@ -22,10 +22,9 @@ export default class SearchPlayer extends Component {
         super(props);
 
         this.state = {
-            realm: getAllPlayers(),
             refreshing: false,
             searchTxt: null,
-            temp: [],
+            result: [],
             platform: 'uplay',
         };
     }
@@ -39,27 +38,25 @@ export default class SearchPlayer extends Component {
         });
     };
 
-    updateSearch = (searchTxt) => {
+    fetchSearch = () => {
 
-        setTimeout(() => {
-            console.log(searchTxt)
-        }, 1000);
+        fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    result: responseJson.players,
+                });
 
-        // fetch(`https://r6.apitab.com/search/${this.state.platform}/${searchTxt}?cid=${API_KEY}`, {
-        //     method: 'GET',
-        // })
-        //     .then(response => response.json())
-        //     .then((responseJson) => {
-        //         console.log('getting data from fetch', responseJson);
-        //         // setTimeout(() => {
-        //         //     this.setState({
-        //         //         loading: false,
-        //         //         dataSource: responseJson,
-        //         //     });
-        //         // }, 10000);
-        //
-        //     })
-        //     .catch(error => ToastAndroid.show(error));
+            })
+            .catch(error => ToastAndroid.show(error));
+    };
+
+    updateSearchUserName = (searchTxt) => {
+        this.setState({
+            searchTxt: searchTxt,
+        });
     };
 
     updatePlatform = (platform) => {
@@ -68,12 +65,13 @@ export default class SearchPlayer extends Component {
         this.setState({
             platform: platform,
         });
+        this.fetchSearch();
     };
 
     renderListHeader = () => {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
-                <SearchBar round editable={true} value={this.state.searchTxt} onChangeText={this.updateSearch}
+                <SearchBar round editable={true} value={this.state.searchTxt} onSubmitEditing={this.fetchSearch} onChangeText={this.updateSearchUserName}
                            placeholder='Search for player'/>
                 <View>
                     <Picker
@@ -103,23 +101,14 @@ export default class SearchPlayer extends Component {
                     <View style={{flex: 1}}>
                         <View style={{flex: 1, alignItems: 'center'}}>
                             <FlatList style={{flex: 1, width: '100%'}}
-                                      data={this.state.realm}
+                                      data={this.state.result}
                                       refreshing={this.state.refreshing}
                                       onRefresh={this.handleRefresh}
                                       ListHeaderComponent={this.renderListHeader}
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) => (
                                           <View style={{backgroundColor: 'white', padding: 20}}>
-                                              <Text>Name: {item.name}</Text>
-                                              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                                  <TouchableOpacity
-                                                      style={{alignItems: 'flex-start', marginTop: 5, marginLeft: 10}}
-                                                      onPress={() => this.props.navigation.navigate('Edit User', {
-                                                          userId: item.id,
-                                                      })}>
-                                                      <FontAwesomeIcon icon={faPen}/>
-                                                  </TouchableOpacity>
-                                              </View>
+                                              <Text>Name: {console.log(item)}</Text>
                                           </View>
                                       )}
                             />
