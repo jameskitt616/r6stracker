@@ -1,32 +1,35 @@
 export default class Player {
 
-    constructor(id, name, level, platform, visitors, banned, stats, ranked, operators, seasons, mainOps) {
+    constructor(id, player, custom, refresh, aliases, stats, ranked, social, operators, overlay, history, seasons, op_main) {
         this.id = id;
-        this.name = name;
-        this.level = level;
-        this.platform = platform;
-        this.visitors = visitors;
-        this.banned = banned;
+        this.player = player;
+        this.custom = custom;
+        this.refresh = refresh;
+        this.aliases = aliases;
         this.stats = stats;
         this.ranked = ranked;
+        this.social = social;
         this.operators = operators;
+        this.overlay = overlay;
+        this.history = history;
         this.seasons = seasons;
-        this.mainOps = mainOps;
+        this.op_main = op_main;
     }
 
     getData() {
         return {
             id: this.id,
-            name: this.name,
-            level: this.level,
-            platform: this.platform,
-            visitors: this.visitors,
-            banned: this.banned,
+            player: this.player,
+            custom: this.custom,
+            refresh: this.refresh,
+            aliases: this.aliases,
             stats: this.stats,
             ranked: this.ranked,
+            social: this.social,
             operators: this.operators,
+            overlay: this.overlay,
+            history: this.history,
             seasons: this.seasons,
-            mainOps: this.mainOps,
         };
     }
 }
@@ -36,16 +39,16 @@ Player.schema = {
     primaryKey: 'id',
     properties: {
         id: 'string',
-        name: 'string',
-        level: 'int',
-        platform: 'string',
-        visitors: 'int',
-        banned: 'bool',
+        player: 'string',
+        custom: 'string',
+        refresh: 'string',
+        aliases: 'string',
         stats: 'string',
         ranked: 'string',
+        social: 'string',
         operators: 'string',
-        seasons: 'string',
-        mainOps: 'string',
+        overlay: 'string',
+        history: 'string',
     },
 };
 

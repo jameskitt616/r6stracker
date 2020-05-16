@@ -12,9 +12,10 @@ import {
 import {SearchBar} from 'react-native-elements';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faBars, faUserPlus, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
-import {getAllPlayers} from '../Controller/PlayerController';
+import {createPlayer} from '../Controller/PlayerController';
 import {Picker} from '@react-native-community/picker';
 import {API_KEY} from 'react-native-dotenv'
+import Player from "../Entity/Player";
 
 export default class SearchPlayer extends Component {
 
@@ -86,7 +87,37 @@ export default class SearchPlayer extends Component {
         console.log(this.state.result);
     };
 
+    addPlayer = (id) => {
+
+        fetch(`https://r6.apitab.com/player/${id}?cid=${API_KEY}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then((responseJson) => {
+
+                var p = responseJson;
+
+                var player = new Player(p.player.p_id, p.player, p.custom, p.refresh, p.aliases, p.stats, p.ranked, p.social, p.operators, p.overlay, p.history, p.seasons, p.op_main);
+
+                createPlayer(player);
+
+                // var players = [];
+                //
+                // Object.keys(p).forEach(function (key) {
+                //     var responsePlayer = p[key];
+                //     players.push(responsePlayer);
+                // });
+                //
+                // this.setState({
+                //     result: players,
+                // });
+
+            })
+            .catch(error => ToastAndroid.show(error));
+    };
+
     renderListHeader = () => {
+
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
                 <SearchBar round editable={true} value={this.state.searchTxt} onSubmitEditing={this.fetchSearch}
@@ -126,37 +157,30 @@ export default class SearchPlayer extends Component {
                                       ListHeaderComponent={this.renderListHeader}
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) => (
-                                          <View style={{
-                                              flexDirection: 'row',
-                                              padding: 10,
-                                              marginRight: 10,
-                                              marginLeft: 10,
-                                              marginBottom: 10,
-                                              borderRadius: 5,
-                                              backgroundColor: '#222222'
-                                          }}>
-                                              <View style={{width: '50%', fontWeight: 'bold'}}>
+                                          <View style={styles.playerList}>
+                                              <View style={{width: '80%', fontWeight: 'bold'}}>
                                                   <Text style={{
                                                       fontSize: 18,
                                                       color: 'white',
                                                       fontWeight: 'bold'
                                                   }}>{item.profile.p_name}</Text>
-                                                  <Text style={{color: '#757575'}}>lvl: {item.stats.level} |
-                                                      mmr: {item.ranked.mmr}</Text>
+                                                  <Text>
+                                                      lvl: <Text style={{color: '#757575'}}>{item.stats.level}</Text> |
+                                                      mmr: <Text style={{color: '#757575'}}>{item.ranked.mmr}</Text> |
+                                                      K/D: <Text style={{color: '#757575'}}>{item.ranked.kd}</Text>
+                                                  </Text>
                                               </View>
-                                              <View style={{width: '50%', alignItems: 'flex-end'}}>
-                                                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                                      <TouchableOpacity
-                                                          style={{
-                                                              alignItems: 'flex-start',
-                                                              marginTop: 5,
-                                                              marginLeft: 10
-                                                          }}
-                                                          onPress={() => console.log('add')}>
-                                                          <FontAwesomeIcon icon={faUserPlus} size={35}
-                                                                           color={'#757575'}/>
-                                                      </TouchableOpacity>
-                                                  </View>
+                                              <View style={{width: '20%', alignItems: 'flex-end'}}>
+                                                  <TouchableOpacity
+                                                      style={{
+                                                          alignItems: 'flex-start',
+                                                          marginTop: 5,
+                                                          marginLeft: 10
+                                                      }}
+                                                      onPress={() => this.addPlayer(item.profile.p_id)}>
+                                                      <FontAwesomeIcon icon={faUserPlus} size={35}
+                                                                       color={'#757575'}/>
+                                                  </TouchableOpacity>
                                               </View>
                                           </View>
                                       )}
@@ -177,5 +201,14 @@ const styles = StyleSheet.create({
     text: {
         color: 'black',
         fontSize: 20,
+    },
+    playerList: {
+        flexDirection: 'row',
+        padding: 10,
+        marginRight: 10,
+        marginLeft: 10,
+        marginBottom: 10,
+        borderRadius: 5,
+        backgroundColor: '#222222'
     },
 });
