@@ -81,8 +81,8 @@ export default class Player extends Component {
                 <SearchBar round editable={true} value={this.state.searchTxt} onChangeText={this.updateSearch}
                            placeholder='Search Users'/>
                 <View style={{alignItems: 'center'}}>
-                    <Button title="Create User"
-                            onPress={() => this.props.navigation.navigate('Create User')}
+                    <Button title="Create Player"
+                            onPress={() => this.props.navigation.navigate('Create Player')}
                     />
                 </View>
             </View>
@@ -107,7 +107,7 @@ export default class Player extends Component {
                                               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                                   <TouchableOpacity
                                                       style={{alignItems: 'flex-start', marginTop: 5, marginLeft: 10}}
-                                                      onPress={() => this.props.navigation.navigate('Edit User', {
+                                                      onPress={() => this.props.navigation.navigate('Edit Player', {
                                                           userId: item.id,
                                                       })}>
                                                       <FontAwesomeIcon icon={ faPen } />

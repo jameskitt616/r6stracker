@@ -1,11 +1,11 @@
 import Realm from 'realm';
-import User from '../Entity/User';
+import Player from '../Entity/Player';
 import {ToastAndroid} from 'react-native';
 
-let realm = new Realm({schema: [User.schema]});
-// let realm = new Realm({schema: [User.schema], schemaVersion: 1});
+let realm = new Realm({schema: [Player.schema]});
+// let realm = new Realm({schema: [Player.schema], schemaVersion: 1});
 // let realm = new Realm({
-//     schema: [User.updatedSchema],
+//     schema: [Player.updatedSchema],
 //     schemaVersion: 1,
 //     migration: (oldRealm, newRealm) => {
 //         // only apply this change if upgrading to schemaVersion 1
@@ -25,41 +25,41 @@ let realm = new Realm({schema: [User.schema]});
 
 export const getAllPlayers = () => {
 
-    return realm.objects('user');
+    return realm.objects('player');
 };
 
-export const createPlayer = (User) => {
+export const createPlayer = (Player) => {
 
-    if (User) {
+    if (Player) {
         realm.write(() => {
-            realm.create('user', User.getData());
-            ToastAndroid.show('User has been added', 3);
+            realm.create('player', Player.getData());
+            ToastAndroid.show('Player has been added', 3);
         });
     } else {
         ToastAndroid.show('Something went wrong', 3);
     }
 };
 
-export const savePlayer = (updatedUser) => {
+export const savePlayer = (updatedPlayer) => {
 
-    let currentUser = getPlayerById(updatedUser.id);
+    let currentPlayer = getPlayerById(updatedPlayer.id);
 
     realm.write(() => {
 
-        currentUser.name = updatedUser.name;
-        ToastAndroid.show('User has been updated', 3);
+        currentPlayer.name = updatedPlayer.name;
+        ToastAndroid.show('Player has been updated', 3);
     });
 };
 
 export const getPlayerById = (userId) => {
 
-    return realm.objectForPrimaryKey('user', userId);
+    return realm.objectForPrimaryKey('player', userId);
 
     // let users = getAllUsers();
     // let filteredUsers = users.filtered("id = $0", userId);
     // let user = null;
     // if (filteredUsers.length === 0) {
-    //     ToastAndroid.show('No User(s) found', 3);
+    //     ToastAndroid.show('No Player(s) found', 3);
     // } else {
     //     user = filteredUsers[0];
     // }
@@ -67,10 +67,10 @@ export const getPlayerById = (userId) => {
     // return user;
 };
 
-export const deletePlayer = (User) => {
+export const deletePlayer = (Player) => {
 
     realm.write(() => {
-        realm.delete(User);
-        ToastAndroid.show('User has been deleted', 3);
+        realm.delete(Player);
+        ToastAndroid.show('Player has been deleted', 3);
     });
 };

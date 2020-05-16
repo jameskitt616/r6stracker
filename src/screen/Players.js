@@ -49,7 +49,7 @@ export default class Players extends Component {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
                 <View>
-                    <TouchableOpacity style={{backgroundColor: '#232321', padding: 10, marginTop: 10, marginLeft: 5, marginRight: 5, borderRadius: 5, alignItems: 'center'}}
+                    <TouchableOpacity style={{backgroundColor: '#222222', padding: 10, marginTop: 10, marginLeft: 5, marginRight: 5, borderRadius: 5, alignItems: 'center'}}
                                       onPress={() => this.props.navigation.navigate('Search Player')}>
                         <FontAwesomeIcon icon={faUserPlus} size={30} />
                     </TouchableOpacity>
@@ -61,7 +61,7 @@ export default class Players extends Component {
     noContent = () => {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
-                <View style={{backgroundColor: '#232321', padding: 10, marginTop: 10, marginLeft: 5, marginRight: 5, borderRadius: 5, alignItems: 'center'}}>
+                <View style={{backgroundColor: '#222222', padding: 10, marginTop: 10, marginLeft: 5, marginRight: 5, borderRadius: 5, alignItems: 'center'}}>
                     <Text>No Players added</Text>
                 </View>
             </View>
@@ -88,7 +88,7 @@ export default class Players extends Component {
                                       ListHeaderComponent={this.renderListHeader}
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) => (
-                                          <View style={{padding: 30}}>
+                                          <View style={{padding: 30, backgroundColor: '#222222'}}>
                                               <Text>Name: {item.p_name}</Text>
                                               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                                                   <TouchableOpacity

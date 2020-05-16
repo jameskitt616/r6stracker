@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 import {SearchBar} from 'react-native-elements';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faBars, faPen} from '@fortawesome/free-solid-svg-icons';
+import {faBars, faUserPlus, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 import {getAllPlayers} from '../Controller/PlayerController';
 import {Picker} from '@react-native-community/picker';
-import { API_KEY } from 'react-native-dotenv'
+import {API_KEY} from 'react-native-dotenv'
 
 export default class SearchPlayer extends Component {
 
@@ -40,17 +40,34 @@ export default class SearchPlayer extends Component {
 
     fetchSearch = () => {
 
-        fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}`, {
-            method: 'GET',
-        })
-            .then(response => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    result: responseJson.players,
-                });
+        if (this.state.searchTxt) {
 
+            fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}`, {
+                method: 'GET',
             })
-            .catch(error => ToastAndroid.show(error));
+                .then(response => response.json())
+                .then((responseJson) => {
+
+                    var playersJson = responseJson.players;
+                    var players = [];
+
+                    Object.keys(playersJson).forEach(function (key) {
+                        var responsePlayer = playersJson[key];
+                        players.push(responsePlayer);
+                    });
+
+                    this.setState({
+                        result: players,
+                    });
+
+                })
+                .catch(error => ToastAndroid.show(error));
+        } else {
+
+            this.setState({
+                result: [],
+            });
+        }
     };
 
     updateSearchUserName = (searchTxt) => {
@@ -66,12 +83,14 @@ export default class SearchPlayer extends Component {
             platform: platform,
         });
         this.fetchSearch();
+        console.log(this.state.result);
     };
 
     renderListHeader = () => {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
-                <SearchBar round editable={true} value={this.state.searchTxt} onSubmitEditing={this.fetchSearch} onChangeText={this.updateSearchUserName}
+                <SearchBar round editable={true} value={this.state.searchTxt} onSubmitEditing={this.fetchSearch}
+                           onChangeText={this.updateSearchUserName}
                            placeholder='Search for player'/>
                 <View>
                     <Picker
@@ -95,11 +114,11 @@ export default class SearchPlayer extends Component {
                     <View style={{flexDirection: 'row', backgroundColor: '#757575'}}>
                         <TouchableOpacity style={{marginTop: 7, marginBottom: 5, marginLeft: 10}}
                                           onPress={this.props.navigation.openDrawer}>
-                            <FontAwesomeIcon icon={ faBars } size={25} />
+                            <FontAwesomeIcon icon={faBars} size={25}/>
                         </TouchableOpacity>
                     </View>
                     <View style={{flex: 1}}>
-                        <View style={{flex: 1, alignItems: 'center'}}>
+                        <View style={{flex: 1, alignItems: 'center', backgroundColor: '#3d3c3b'}}>
                             <FlatList style={{flex: 1, width: '100%'}}
                                       data={this.state.result}
                                       refreshing={this.state.refreshing}
@@ -107,8 +126,38 @@ export default class SearchPlayer extends Component {
                                       ListHeaderComponent={this.renderListHeader}
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) => (
-                                          <View style={{backgroundColor: 'white', padding: 20}}>
-                                              <Text>Name: {console.log(item)}</Text>
+                                          <View style={{
+                                              flexDirection: 'row',
+                                              padding: 10,
+                                              marginRight: 10,
+                                              marginLeft: 10,
+                                              marginBottom: 10,
+                                              borderRadius: 5,
+                                              backgroundColor: '#222222'
+                                          }}>
+                                              <View style={{width: '50%', fontWeight: 'bold'}}>
+                                                  <Text style={{
+                                                      fontSize: 18,
+                                                      color: 'white',
+                                                      fontWeight: 'bold'
+                                                  }}>{item.profile.p_name}</Text>
+                                                  <Text style={{color: '#757575'}}>lvl: {item.stats.level} |
+                                                      mmr: {item.ranked.mmr}</Text>
+                                              </View>
+                                              <View style={{width: '50%', alignItems: 'flex-end'}}>
+                                                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                                      <TouchableOpacity
+                                                          style={{
+                                                              alignItems: 'flex-start',
+                                                              marginTop: 5,
+                                                              marginLeft: 10
+                                                          }}
+                                                          onPress={() => console.log('add')}>
+                                                          <FontAwesomeIcon icon={faUserPlus} size={35}
+                                                                           color={'#757575'}/>
+                                                      </TouchableOpacity>
+                                                  </View>
+                                              </View>
                                           </View>
                                       )}
                             />
