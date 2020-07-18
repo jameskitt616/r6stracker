@@ -30,6 +30,7 @@ export default class Player {
             overlay: this.overlay,
             history: this.history,
             seasons: this.seasons,
+            op_main: this.op_main,
         };
     }
 }
@@ -49,10 +50,12 @@ Player.schema = {
         operators: 'string',
         overlay: 'string',
         history: 'string',
+        seasons: 'string',
+        op_main: 'string',
     },
 };
 
-// Player.updatedSchema = {
+// Player.schema = {
 //     name: 'player',
 //     primaryKey: 'id',
 //     properties: {

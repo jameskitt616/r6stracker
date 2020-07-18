@@ -95,9 +95,39 @@ export default class SearchPlayer extends Component {
             .then(response => response.json())
             .then((responseJson) => {
 
+                // var p = JSON.stringify(responseJson);
                 var p = responseJson;
 
-                var player = new Player(p.player.p_id, p.player, p.custom, p.refresh, p.aliases, p.stats, p.ranked, p.social, p.operators, p.overlay, p.history, p.seasons, p.op_main);
+                // var user = [];
+
+                // for(var i in p['player']){
+                //     user.push(i, p['player'][i]);
+                // }
+
+
+                // Object.keys(p['player']).forEach(function (key) {
+                //
+                //     user.push(p['player'][key]);
+                //     // user.push({[key]: p['player'][key]});
+                // });
+
+
+                // var player = new Player(p['player'].p_id, JSON.stringify(p['player']));
+                var player = new Player(
+                    p['player'].p_id,
+                    JSON.stringify(p['player']),
+                    JSON.stringify(p['custom']),
+                    JSON.stringify(p['refresh']),
+                    JSON.stringify(p['aliases']),
+                    JSON.stringify(p['stats']),
+                    JSON.stringify(p['ranked']),
+                    JSON.stringify(p['social']),
+                    JSON.stringify(p['operators']),
+                    JSON.stringify(p['overlay']),
+                    JSON.stringify(p['history']),
+                    JSON.stringify(p['seasons']),
+                    JSON.stringify(p['op_main']),
+                );
 
                 createPlayer(player);
 
