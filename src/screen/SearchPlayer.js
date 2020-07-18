@@ -30,15 +30,6 @@ export default class SearchPlayer extends Component {
         };
     }
 
-    handleRefresh = () => {
-
-        this.setState({
-            // refreshing: true,
-        }, () => {
-            getAllPlayers();
-        });
-    };
-
     fetchSearch = () => {
 
         if (this.state.searchTxt) {
@@ -95,24 +86,7 @@ export default class SearchPlayer extends Component {
             .then(response => response.json())
             .then((responseJson) => {
 
-                // var p = JSON.stringify(responseJson);
                 var p = responseJson;
-
-                // var user = [];
-
-                // for(var i in p['player']){
-                //     user.push(i, p['player'][i]);
-                // }
-
-
-                // Object.keys(p['player']).forEach(function (key) {
-                //
-                //     user.push(p['player'][key]);
-                //     // user.push({[key]: p['player'][key]});
-                // });
-
-
-                // var player = new Player(p['player'].p_id, JSON.stringify(p['player']));
                 var player = new Player(
                     p['player'].p_id,
                     JSON.stringify(p['player']),
@@ -130,18 +104,6 @@ export default class SearchPlayer extends Component {
                 );
 
                 createPlayer(player);
-
-                // var players = [];
-                //
-                // Object.keys(p).forEach(function (key) {
-                //     var responsePlayer = p[key];
-                //     players.push(responsePlayer);
-                // });
-                //
-                // this.setState({
-                //     result: players,
-                // });
-
             })
             .catch(error => ToastAndroid.show(error));
     };
@@ -183,7 +145,6 @@ export default class SearchPlayer extends Component {
                             <FlatList style={{flex: 1, width: '100%'}}
                                       data={this.state.result}
                                       refreshing={this.state.refreshing}
-                                      onRefresh={this.handleRefresh}
                                       ListHeaderComponent={this.renderListHeader}
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) => (
@@ -195,9 +156,9 @@ export default class SearchPlayer extends Component {
                                                       fontWeight: 'bold'
                                                   }}>{item.profile.p_name}</Text>
                                                   <Text>
-                                                      lvl: <Text style={{color: '#757575'}}>{item.stats.level}</Text> |
-                                                      mmr: <Text style={{color: '#757575'}}>{item.ranked.mmr}</Text> |
-                                                      K/D: <Text style={{color: '#757575'}}>{item.ranked.kd}</Text>
+                                                      <Text style={{color: '#757575'}}>lvl: </Text><Text style={{color: 'white'}}>{item.stats.level} </Text>
+                                                      <Text style={{color: '#757575'}}>mmr: </Text><Text style={{color: 'white'}}>{item.ranked.mmr} </Text>
+                                                      <Text style={{color: '#757575'}}>K/D: </Text><Text style={{color: 'white'}}>{item.ranked.kd}</Text>
                                                   </Text>
                                               </View>
                                               <View style={{width: '20%', alignItems: 'flex-end'}}>

@@ -89,14 +89,31 @@ export default class Players extends Component {
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) => (
                                           <View style={styles.playerList}>
-                                              <Text style={{color: 'white'}}>Name: {JSON.parse(item.player)['p_name']}</Text>
-                                              <Text style={{color: 'white'}}>lvl: {JSON.parse(item.stats)['level']}</Text>
-                                              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                              <View style={{width: '80%', fontWeight: 'bold'}}>
+                                                  <Text style={{
+                                                      fontSize: 18,
+                                                      color: 'white',
+                                                      fontWeight: 'bold'
+                                                  }}>{JSON.parse(item.player)['p_name']}</Text>
+                                                  <Text>
+                                                      <Text style={{color: '#757575'}}>lvl: </Text><Text style={{color: 'white'}}>{JSON.parse(item.stats)['level']} </Text>
+                                                      <Text style={{color: '#757575'}}>mmr: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['mmr']} </Text>
+                                                      <Text style={{color: '#757575'}}>K/D: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['kd']}</Text>
+                                                  </Text>
                                                   <TouchableOpacity
                                                       style={{alignItems: 'flex-start', marginTop: 5, marginLeft: 10}}
+                                                      onPress={() => this.props.navigation.navigate('Player', {
+                                                          playerId: JSON.parse(item.player)['p_id'],
+                                                      })}>
+                                                      <FontAwesomeIcon icon={ faUserPlus } />
+                                                  </TouchableOpacity>
+                                              </View>
+                                              <View style={{width: '20%', alignItems: 'flex-end'}}>
+                                                  <TouchableOpacity
+                                                      style={{alignItems: 'flex-start', marginTop: 12, marginLeft: 10}}
                                                       onPress={() => Alert.alert(
                                                           'Warning',
-                                                          `Would you like to remove player: ${item.name} ?`,
+                                                          `Would you like to remove player: ${JSON.parse(item.player)['p_name']} ?`,
                                                           [
                                                               {
                                                                   text: 'Cancel',
@@ -108,7 +125,7 @@ export default class Players extends Component {
                                                               },
                                                           ],
                                                       )}>
-                                                      <FontAwesomeIcon icon={ faTimesCircle } color={"red"}/>
+                                                      <FontAwesomeIcon icon={ faTimesCircle } size={20} color={"red"}/>
                                                   </TouchableOpacity>
                                               </View>
                                           </View>
