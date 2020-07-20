@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import Player from './src/screen/Player';
+import PlayerOverview from './src/screen/PlayerOverview';
 import Players from './src/screen/Players';
 import SearchPlayer from './src/screen/SearchPlayer';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -28,7 +28,7 @@ export default function App() {
 function PlayerStack() {
   return (
       <Tab.Navigator initialRouteName="Player Overview">
-        <Tab.Screen name="Player Overview" component={Player} />
+        <Tab.Screen name="Player Overview" component={PlayerOverview} />
       </Tab.Navigator>
   );
 }
@@ -39,7 +39,7 @@ function PlayersStack() {
         <Stack.Screen name="Players" component={Players}  options={{
             headerShown: false
         }} />
-        <Stack.Screen name="Player" component={PlayerStack} />
+        <Stack.Screen name="Player" component={PlayerOverview} />
       </Stack.Navigator>
   );
 }

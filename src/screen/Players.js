@@ -5,7 +5,7 @@ import {
     FlatList,
     TouchableOpacity,
     StyleSheet,
-    Alert,
+    Alert, Image,
 } from 'react-native';
 import {getAllPlayers, deletePlayer} from '../Controller/PlayerController';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -88,7 +88,9 @@ export default class Players extends Component {
                                       ListHeaderComponent={this.renderListHeader}
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) => (
-                                          <View style={styles.playerList}>
+                                          <TouchableOpacity style={styles.playerList} onPress={() => this.props.navigation.navigate('Player', {
+                                              playerId: item.id,
+                                          })}>
                                               <View style={{width: '80%', fontWeight: 'bold'}}>
                                                   <Text style={{
                                                       fontSize: 18,
@@ -100,13 +102,6 @@ export default class Players extends Component {
                                                       <Text style={{color: '#757575'}}>mmr: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['mmr']} </Text>
                                                       <Text style={{color: '#757575'}}>K/D: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['kd']}</Text>
                                                   </Text>
-                                                  <TouchableOpacity
-                                                      style={{alignItems: 'flex-start', marginTop: 5, marginLeft: 10}}
-                                                      onPress={() => this.props.navigation.navigate('Player', {
-                                                          playerId: JSON.parse(item.player)['p_id'],
-                                                      })}>
-                                                      <FontAwesomeIcon icon={ faUserPlus } />
-                                                  </TouchableOpacity>
                                               </View>
                                               <View style={{width: '20%', alignItems: 'flex-end'}}>
                                                   <TouchableOpacity
@@ -128,7 +123,7 @@ export default class Players extends Component {
                                                       <FontAwesomeIcon icon={ faTimesCircle } size={20} color={"red"}/>
                                                   </TouchableOpacity>
                                               </View>
-                                          </View>
+                                          </TouchableOpacity>
                                       )}
                             />
                         </View>
