@@ -21,6 +21,10 @@ export default class Players extends Component {
             refreshing: false,
         };
     }
+    componentDidMount(): void {
+
+        //TODO: grab new player stats
+    }
 
     handleRefresh = () => {
 
@@ -92,16 +96,24 @@ export default class Players extends Component {
                                               playerId: item.id,
                                           })}>
                                               <View style={{width: '80%', fontWeight: 'bold'}}>
-                                                  <Text style={{
-                                                      fontSize: 18,
-                                                      color: 'white',
-                                                      fontWeight: 'bold'
-                                                  }}>{JSON.parse(item.player)['p_name']}</Text>
-                                                  <Text>
-                                                      <Text style={{color: '#757575'}}>lvl: </Text><Text style={{color: 'white'}}>{JSON.parse(item.stats)['level']} </Text>
-                                                      <Text style={{color: '#757575'}}>mmr: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['mmr']} </Text>
-                                                      <Text style={{color: '#757575'}}>K/D: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['kd']}</Text>
-                                                  </Text>
+                                                  <View style={{flexDirection: 'row',}}>
+                                                      <View style={{width: '15%'}}>
+                                                          {/*TODO: add mapping table for ranks*/}
+                                                        <Image source={require('../../android/app/src/main/assets/RANK_500x500Platinum_01.png')} style={{ width: 30, height: 40 }} />
+                                                      </View>
+                                                      <View style={{width: '85%'}}>
+                                                          <Text style={{
+                                                              fontSize: 18,
+                                                              color: 'white',
+                                                              fontWeight: 'bold'
+                                                          }}>{JSON.parse(item.player)['p_name']}</Text>
+                                                          <Text>
+                                                              <Text style={{color: '#757575'}}>lvl: </Text><Text style={{color: 'white'}}>{JSON.parse(item.stats)['level']} </Text>
+                                                              <Text style={{color: '#757575'}}>mmr: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['EU_actualmmr']} </Text>
+                                                              <Text style={{color: '#757575'}}>K/D: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['kd']}</Text>
+                                                          </Text>
+                                                      </View>
+                                                  </View>
                                               </View>
                                               <View style={{width: '20%', alignItems: 'flex-end'}}>
                                                   <TouchableOpacity

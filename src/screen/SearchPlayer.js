@@ -157,7 +157,7 @@ export default class SearchPlayer extends Component {
                                                   }}>{item.profile.p_name}</Text>
                                                   <Text>
                                                       <Text style={{color: '#757575'}}>lvl: </Text><Text style={{color: 'white'}}>{item.stats.level} </Text>
-                                                      <Text style={{color: '#757575'}}>mmr: </Text><Text style={{color: 'white'}}>{item.ranked.mmr} </Text>
+                                                      <Text style={{color: '#757575'}}>mmr: </Text><Text style={{color: 'white'}}>{item.ranked.EU_actualmmr} </Text>
                                                       <Text style={{color: '#757575'}}>K/D: </Text><Text style={{color: 'white'}}>{item.ranked.kd}</Text>
                                                   </Text>
                                               </View>

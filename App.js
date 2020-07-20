@@ -28,7 +28,7 @@ export default function App() {
 function PlayerStack() {
   return (
       <Tab.Navigator initialRouteName="Player Overview">
-        <Tab.Screen name="Player Overview" component={PlayerOverview} />
+        <Tab.Screen name="Player Overview" component={PlayerOverview} options={props}/>
       </Tab.Navigator>
   );
 }
@@ -39,7 +39,12 @@ function PlayersStack() {
         <Stack.Screen name="Players" component={Players}  options={{
             headerShown: false
         }} />
-        <Stack.Screen name="Player" component={PlayerOverview} />
+        <Stack.Screen name="Player" component={PlayerOverview} options={{
+            title: '',
+            headerStyle: {
+                backgroundColor: '#757575'
+            },
+        }}/>
       </Stack.Navigator>
   );
 }
