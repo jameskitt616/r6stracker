@@ -16,6 +16,7 @@ import {createPlayer} from '../Controller/PlayerController';
 import {Picker} from '@react-native-community/picker';
 import {API_KEY} from 'react-native-dotenv'
 import Player from "../Entity/Player";
+import {bgGrayHard, bgGrayLight, bgGrayMid, grayLight} from "../Enum/colors";
 
 export default class SearchPlayer extends Component {
 
@@ -133,14 +134,14 @@ export default class SearchPlayer extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flex: 1}}>
-                    <View style={{flexDirection: 'row', backgroundColor: '#757575'}}>
+                    <View style={{flexDirection: 'row', backgroundColor: bgGrayLight}}>
                         <TouchableOpacity style={{marginTop: 7, marginBottom: 5, marginLeft: 10}}
                                           onPress={this.props.navigation.openDrawer}>
                             <FontAwesomeIcon icon={faBars} size={25}/>
                         </TouchableOpacity>
                     </View>
                     <View style={{flex: 1}}>
-                        <View style={{flex: 1, alignItems: 'center', backgroundColor: '#3d3c3b'}}>
+                        <View style={{flex: 1, alignItems: 'center', backgroundColor: bgGrayMid}}>
                             <FlatList style={{flex: 1, width: '100%'}}
                                       data={this.state.result}
                                       refreshing={this.state.refreshing}
@@ -155,9 +156,9 @@ export default class SearchPlayer extends Component {
                                                       fontWeight: 'bold'
                                                   }}>{item.profile.p_name}</Text>
                                                   <Text>
-                                                      <Text style={{color: '#757575'}}>lvl: </Text><Text style={{color: 'white'}}>{item.stats.level} </Text>
-                                                      <Text style={{color: '#757575'}}>mmr: </Text><Text style={{color: 'white'}}>{item.ranked.EU_actualmmr} </Text>
-                                                      <Text style={{color: '#757575'}}>K/D: </Text><Text style={{color: 'white'}}>{item.ranked.kd}</Text>
+                                                      <Text style={{color: grayLight}}>lvl: </Text><Text style={{color: 'white'}}>{item.stats.level} </Text>
+                                                      <Text style={{color: grayLight}}>mmr: </Text><Text style={{color: 'white'}}>{item.ranked.EU_actualmmr} </Text>
+                                                      <Text style={{color: grayLight}}>K/D: </Text><Text style={{color: 'white'}}>{item.ranked.kd}</Text>
                                                   </Text>
                                               </View>
                                               <View style={{width: '20%', alignItems: 'flex-end'}}>
@@ -169,7 +170,7 @@ export default class SearchPlayer extends Component {
                                                       }}
                                                       onPress={() => this.addPlayer(item.profile.p_id)}>
                                                       <FontAwesomeIcon icon={faUserPlus} size={35}
-                                                                       color={'#757575'}/>
+                                                                       color={grayLight}/>
                                                   </TouchableOpacity>
                                               </View>
                                           </View>
@@ -199,6 +200,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginBottom: 10,
         borderRadius: 5,
-        backgroundColor: '#222222'
+        backgroundColor: bgGrayHard
     },
 });

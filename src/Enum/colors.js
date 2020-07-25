@@ -1,3 +1,7 @@
-const bgGrayLight = { bgGrayHard: '#757575'};
-const bgGrayMid = { bgGrayHard: '#3d3c3b'};
-const bgGrayHard = { bgGrayHard: '#222222'};
+export const bgGrayLight = '#757575';
+export const bgGrayMid = '#3d3c3b';
+export const bgGrayHard = '#222222';
+
+export const grayLight = '#757575';
+export const grayMid = '#3d3c3b';
+export const grayHard = '#222222';

@@ -10,6 +10,7 @@ import {
 import {getAllPlayers, deletePlayer, mapPlayerRank} from '../Controller/PlayerController';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTimesCircle, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons';
+import {bgGrayHard, bgGrayMid, bgGrayLight, grayLight} from '../Enum/colors'
 
 export default class Players extends Component {
 
@@ -53,7 +54,7 @@ export default class Players extends Component {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
                 <View>
-                    <TouchableOpacity style={{backgroundColor: '#222222', padding: 10, marginTop: 10, marginBottom: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}
+                    <TouchableOpacity style={{backgroundColor: bgGrayHard, padding: 10, marginTop: 10, marginBottom: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}
                                       onPress={() => this.props.navigation.navigate('Search Player')}>
                         <FontAwesomeIcon icon={faUserPlus} size={30} color={'white'}/>
                     </TouchableOpacity>
@@ -65,7 +66,7 @@ export default class Players extends Component {
     noContent = () => {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
-                <View style={{backgroundColor: '#222222', padding: 10, marginTop: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}>
+                <View style={{backgroundColor: bgGrayHard, padding: 10, marginTop: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}>
                     <Text style={{color: 'white'}}>No Players added</Text>
                 </View>
             </View>
@@ -76,14 +77,14 @@ export default class Players extends Component {
         return (
             <View style={styles.container}>
                 <View style={{flex: 1}}>
-                    <View style={{flexDirection: 'row', backgroundColor: '#757575'}}>
+                    <View style={{flexDirection: 'row', backgroundColor: bgGrayLight}}>
                         <TouchableOpacity style={{marginTop: 7, marginBottom: 5, marginLeft: 10}}
                                           onPress={this.props.navigation.openDrawer}>
                             <FontAwesomeIcon icon={ faBars } size={25} />
                         </TouchableOpacity>
                     </View>
                     <View style={{flex: 1}}>
-                        <View style={{flex: 1, alignItems: 'center', backgroundColor: '#3d3c3b'}}>
+                        <View style={{flex: 1, alignItems: 'center', backgroundColor: bgGrayMid}}>
                             <FlatList style={{flex: 1, width: '100%'}}
                                       data={this.state.realm}
                                       refreshing={this.state.refreshing}
@@ -107,9 +108,9 @@ export default class Players extends Component {
                                                               fontWeight: 'bold'
                                                           }}>{JSON.parse(item.player)['p_name']}</Text>
                                                           <Text>
-                                                              <Text style={{color: '#757575'}}>lvl: </Text><Text style={{color: 'white'}}>{JSON.parse(item.stats)['level']} </Text>
-                                                              <Text style={{color: '#757575'}}>mmr: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['EU_actualmmr']} </Text>
-                                                              <Text style={{color: '#757575'}}>K/D: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['kd']}</Text>
+                                                              <Text style={{color: grayLight}}>lvl: </Text><Text style={{color: 'white'}}>{JSON.parse(item.stats)['level']} </Text>
+                                                              <Text style={{color: grayLight}}>mmr: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['EU_actualmmr']} </Text>
+                                                              <Text style={{color: grayLight}}>K/D: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['kd']}</Text>
                                                           </Text>
                                                       </View>
                                                   </View>
@@ -119,7 +120,7 @@ export default class Players extends Component {
                                                       style={{alignItems: 'flex-start', marginTop: 12, marginLeft: 10}}
                                                       onPress={() => Alert.alert(
                                                           'Warning',
-                                                          `Would you like to remove player: ${JSON.parse(item.player)['p_name']} ?`,
+                                                          `Would you like to remove player: ${JSON.parse(item.player)['p_name']}?`,
                                                           [
                                                               {
                                                                   text: 'Cancel',
@@ -148,7 +149,7 @@ export default class Players extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#3d3c3b',
+        backgroundColor: bgGrayMid,
     },
     text: {
         color: 'black',
@@ -161,6 +162,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginBottom: 10,
         borderRadius: 5,
-        backgroundColor: '#222222'
+        backgroundColor: bgGrayHard
     },
 });

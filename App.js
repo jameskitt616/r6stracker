@@ -8,6 +8,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { Buffer } from 'buffer';
+import {bgGrayLight} from "./src/Enum/colors";
 global.Buffer = Buffer;
 
 const Stack = createStackNavigator();
@@ -51,7 +52,7 @@ function PlayersStack() {
         <Stack.Screen name="Player" component={PlayerOverview} options={{
             title: '',
             headerStyle: {
-                backgroundColor: '#757575'
+                backgroundColor: bgGrayLight
             },
         }}/>
       </Stack.Navigator>

@@ -4,6 +4,7 @@ import {getPlayerById, mapPlayerRank} from '../Controller/PlayerController';
 import Player from "../Entity/Player";
 import {faAngleDoubleUp, faEye} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
+import {bgGrayHard, bgGrayMid, grayLight} from "../Enum/colors";
 
 export default class PlayerOverview extends Component {
 
@@ -47,7 +48,7 @@ export default class PlayerOverview extends Component {
                         <View style={{flex: 1, alignItems: 'center'}}>
                             <View style={{
                                 borderRadius: 6,
-                                backgroundColor: '#222222',
+                                backgroundColor: bgGrayHard,
                                 margin: 10,
                                 padding: 10,
                             }}>
@@ -60,15 +61,15 @@ export default class PlayerOverview extends Component {
                                 <View style={{alignItems: 'center'}}>
                                     <View style={{flexDirection: 'row'}}>
                                         <FontAwesomeIcon icon={faAngleDoubleUp} size={20}
-                                                         color={'#757575'}/>
+                                                         color={grayLight}/>
                                         <Text style={styles.text}>
                                             {this.state.player.stats.level}</Text>
                                         <FontAwesomeIcon icon={faAngleDoubleUp} size={20}
-                                                         color={'#757575'}/>
+                                                         color={grayLight}/>
                                     </View>
                                     <View style={{flexDirection: 'row'}}>
                                         <FontAwesomeIcon icon={faEye} size={20}
-                                                         color={'#757575'}/>
+                                                         color={grayLight}/>
                                         <Text style={styles.text}>Profile
                                             Visitors: {this.state.player.custom.visitors}</Text>
                                     </View>
@@ -104,7 +105,7 @@ export default class PlayerOverview extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#3d3c3b',
+        backgroundColor: bgGrayMid,
     },
     text: {
         color: 'white',
