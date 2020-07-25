@@ -7,7 +7,7 @@ import {
     StyleSheet,
     Alert, Image,
 } from 'react-native';
-import {getAllPlayers, deletePlayer} from '../Controller/PlayerController';
+import {getAllPlayers, deletePlayer, mapPlayerRank} from '../Controller/PlayerController';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTimesCircle, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons';
 
@@ -98,8 +98,7 @@ export default class Players extends Component {
                                               <View style={{width: '80%', fontWeight: 'bold'}}>
                                                   <View style={{flexDirection: 'row',}}>
                                                       <View style={{width: '15%'}}>
-                                                          {/*TODO: add mapping table for ranks*/}
-                                                        <Image source={require('../../android/app/src/main/assets/RANK_500x500Platinum_01.png')} style={{ width: 30, height: 40 }} />
+                                                          {mapPlayerRank(JSON.parse(item.ranked)['mmr'])}
                                                       </View>
                                                       <View style={{width: '85%'}}>
                                                           <Text style={{

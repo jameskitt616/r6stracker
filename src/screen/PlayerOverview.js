@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, View,} from 'react-native';
-import {getPlayerById} from '../Controller/PlayerController';
+import {getPlayerById, mapPlayerRank} from '../Controller/PlayerController';
 import Player from "../Entity/Player";
 import {faAngleDoubleUp, faEye} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
@@ -33,10 +33,6 @@ export default class PlayerOverview extends Component {
         };
     }
 
-    componentDidMount(): void {
-        console.log(this.state.player);
-    }
-
     calcPlaytime = (time) => {
 
         let nonShortedTime = time / 60 / 60;
@@ -55,8 +51,7 @@ export default class PlayerOverview extends Component {
                                 margin: 10,
                                 padding: 10,
                             }}>
-                                {/*TODO: add mapping table for ranks*/}
-                                {/*<Image source={require('../../android/app/src/main/assets/RANK_500x500Platinum_01.png')} style={{ width: 30, height: 40 }} />*/}
+                                {mapPlayerRank(this.state.player.ranked.mmr)}
                                 <Text style={{
                                     color: 'white',
                                     fontSize: 25,
@@ -77,6 +72,7 @@ export default class PlayerOverview extends Component {
                                         <Text style={styles.text}>Profile
                                             Visitors: {this.state.player.custom.visitors}</Text>
                                     </View>
+                                    {/*TODO: show current unranked mmr if unranked*/}
                                     <Text style={styles.text}>Current
                                         MMR: {this.state.player.ranked.EU_actualmmr}</Text>
                                     <Text style={styles.text}>Overall

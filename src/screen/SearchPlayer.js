@@ -75,7 +75,6 @@ export default class SearchPlayer extends Component {
             platform: platform,
         });
         this.fetchSearch();
-        console.log(this.state.result);
     };
 
     addPlayer = (id) => {
