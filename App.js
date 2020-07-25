@@ -6,7 +6,7 @@ import SearchPlayer from './src/screen/SearchPlayer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { Buffer } from 'buffer';
 global.Buffer = Buffer;
 
@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-      <NavigationContainer>
+      <NavigationContainer theme={Theme}>
         <Drawer.Navigator initialRouteName="Players">
           <Drawer.Screen name="Players" component={PlayersStack} />
           <Drawer.Screen name="Search Player" component={SearchPlayer} />
@@ -24,6 +24,15 @@ export default function App() {
       </NavigationContainer>
   );
 }
+
+const Theme = {
+    ...DarkTheme,
+    colors: {
+        ...DarkTheme.colors,
+        primary: '#FFFFFF',
+        text: '#FFFFFF',
+    },
+};
 
 function PlayerStack() {
   return (

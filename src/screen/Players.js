@@ -55,7 +55,7 @@ export default class Players extends Component {
                 <View>
                     <TouchableOpacity style={{backgroundColor: '#222222', padding: 10, marginTop: 10, marginBottom: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}
                                       onPress={() => this.props.navigation.navigate('Search Player')}>
-                        <FontAwesomeIcon icon={faUserPlus} size={30} />
+                        <FontAwesomeIcon icon={faUserPlus} size={30} color={'white'}/>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -66,7 +66,7 @@ export default class Players extends Component {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
                 <View style={{backgroundColor: '#222222', padding: 10, marginTop: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}>
-                    <Text>No Players added</Text>
+                    <Text style={{color: 'white'}}>No Players added</Text>
                 </View>
             </View>
         </View>;
