@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, View,} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {getPlayerById, mapPlayerRank} from '../Controller/PlayerController';
 import Player from "../Entity/Player";
 import {faAngleDoubleUp, faEye} from '@fortawesome/free-solid-svg-icons';
@@ -34,6 +34,11 @@ export default class PlayerOverview extends Component {
         };
     }
 
+    // componentDidMount(): void {
+    //
+    //     this.props.navigation.setOptions({title: this.state.player.player.p_name});
+    // }
+
     calcPlaytime = (time) => {
 
         let nonShortedTime = time / 60 / 60;
@@ -52,7 +57,9 @@ export default class PlayerOverview extends Component {
                                 margin: 10,
                                 padding: 10,
                             }}>
-                                {mapPlayerRank(this.state.player.ranked.mmr)}
+                                <View style={{alignItems: 'center'}}>
+                                    {mapPlayerRank(this.state.player.ranked.mmr)}
+                                </View>
                                 <Text style={{
                                     color: 'white',
                                     fontSize: 25,
@@ -110,5 +117,21 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         fontSize: 15,
+    },
+    slideContainer: {
+        height: 100,
+    },
+    slide: {
+        padding: 15,
+        height: 100,
+    },
+    slide1: {
+        backgroundColor: '#FEA900',
+    },
+    slide2: {
+        backgroundColor: '#B3DC4A',
+    },
+    slide3: {
+        backgroundColor: '#6AC0FF',
     },
 });

@@ -1,6 +1,6 @@
 # R6STracker
 
-This is an React Native Android/(iOS not implemented) Tracker App project for Tom Clancy's Rainbow Six Siege | Ubisoft®.
+This is an React Native Android/(iOS not tested because i am on Windows) Tracker App project for Tom Clancy's Rainbow Six Siege | Ubisoft®.
 
 ## Getting Started
 

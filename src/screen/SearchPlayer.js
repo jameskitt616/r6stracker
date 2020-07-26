@@ -12,7 +12,7 @@ import {
 import {SearchBar} from 'react-native-elements';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faBars, faUserPlus, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
-import {createPlayer} from '../Controller/PlayerController';
+import {createPlayer, mapPlayerRank} from '../Controller/PlayerController';
 import {Picker} from '@react-native-community/picker';
 import {API_KEY} from 'react-native-dotenv'
 import Player from "../Entity/Player";
@@ -149,17 +149,25 @@ export default class SearchPlayer extends Component {
                                       keyExtractor={(item, index) => index.toString()}
                                       renderItem={({item}) => (
                                           <View style={styles.playerList}>
+
                                               <View style={{width: '80%', fontWeight: 'bold'}}>
-                                                  <Text style={{
-                                                      fontSize: 18,
-                                                      color: 'white',
-                                                      fontWeight: 'bold'
-                                                  }}>{item.profile.p_name}</Text>
-                                                  <Text>
-                                                      <Text style={{color: grayLight}}>lvl: </Text><Text style={{color: 'white'}}>{item.stats.level} </Text>
-                                                      <Text style={{color: grayLight}}>mmr: </Text><Text style={{color: 'white'}}>{item.ranked.EU_actualmmr} </Text>
-                                                      <Text style={{color: grayLight}}>K/D: </Text><Text style={{color: 'white'}}>{item.ranked.kd}</Text>
-                                                  </Text>
+                                                  <View style={{flexDirection: 'row',}}>
+                                                      <View style={{width: '15%'}}>
+                                                          {mapPlayerRank(item.ranked.mmr)}
+                                                      </View>
+                                                      <View style={{width: '85%'}}>
+                                                          <Text style={{
+                                                              fontSize: 18,
+                                                              color: 'white',
+                                                              fontWeight: 'bold'
+                                                          }}>{item.profile.p_name}</Text>
+                                                          <Text>
+                                                              <Text style={{color: grayLight}}>lvl: </Text><Text style={{color: 'white'}}>{item.stats.level} </Text>
+                                                              <Text style={{color: grayLight}}>mmr: </Text><Text style={{color: 'white'}}>{item.ranked.mmr} </Text>
+                                                              <Text style={{color: grayLight}}>K/D: </Text><Text style={{color: 'white'}}>{item.ranked.kd}</Text>
+                                                          </Text>
+                                                      </View>
+                                                  </View>
                                               </View>
                                               <View style={{width: '20%', alignItems: 'flex-end'}}>
                                                   <TouchableOpacity
