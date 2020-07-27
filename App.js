@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import PlayerOverview from './src/screen/PlayerOverview';
-import Players from './src/screen/Players';
+import Home from './src/screen/Home';
 import SearchPlayer from './src/screen/SearchPlayer';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -18,9 +18,9 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
       <NavigationContainer theme={Theme}>
-        <Drawer.Navigator initialRouteName="Players">
-          <Drawer.Screen name="Players" component={PlayersStack} />
-          <Drawer.Screen name="Search Player" component={SearchPlayer} />
+        <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen name="Home" component={PlayersStack} />
+          <Drawer.Screen name="Settings" component={SearchPlayer} />
         </Drawer.Navigator>
       </NavigationContainer>
   );
@@ -45,10 +45,13 @@ function PlayerStack() {
 
 function PlayersStack() {
   return (
-      <Stack.Navigator initialRouteName="Players">
-        <Stack.Screen name="Players" component={Players}  options={{
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} options={{
             headerShown: false
         }} />
+        <Stack.Screen name="Search player" component={SearchPlayer} options={{
+            headerShown: false
+        }}/>
         <Stack.Screen name="Player" component={PlayerOverview} options={{
             title: '',
             headerStyle: {

@@ -5,14 +5,14 @@ import {
     FlatList,
     TouchableOpacity,
     StyleSheet,
-    Alert, Image,
+    Alert,
 } from 'react-native';
 import {getAllPlayers, deletePlayer, mapPlayerRank} from '../Controller/PlayerController';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTimesCircle, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons';
 import {bgGrayHard, bgGrayMid, bgGrayLight, grayLight} from '../Enum/colors'
 
-export default class Players extends Component {
+export default class Home extends Component {
 
     constructor(props) {
         super(props);
@@ -55,7 +55,7 @@ export default class Players extends Component {
             <View style={{flex: 1}}>
                 <View>
                     <TouchableOpacity style={{backgroundColor: bgGrayHard, padding: 10, marginTop: 10, marginBottom: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}
-                                      onPress={() => this.props.navigation.navigate('Search Player')}>
+                                      onPress={() => this.props.navigation.navigate('Search player')}>
                         <FontAwesomeIcon icon={faUserPlus} size={30} color={'white'}/>
                     </TouchableOpacity>
                 </View>
