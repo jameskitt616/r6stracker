@@ -120,10 +120,10 @@ export default class Home extends Component {
                                                       style={{alignItems: 'flex-start', marginTop: 12, marginLeft: 10}}
                                                       onPress={() => Alert.alert(
                                                           'Warning',
-                                                          `Would you like to remove player: ${JSON.parse(item.player)['p_name']}?`,
+                                                          `Would you like to remove "${JSON.parse(item.player)['p_name']}" from your favourites?`,
                                                           [
                                                               {
-                                                                  text: 'Cancel',
+                                                                  text: 'No',
                                                                   style: 'cancel',
                                                               },
                                                               {
