@@ -152,6 +152,16 @@ export default class SearchPlayer extends Component {
         </View>;
     };
 
+    noContent = () => {
+        return <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{flex: 1}}>
+                <View style={{backgroundColor: bgGrayHard, padding: 15, marginTop: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}>
+                    <Text style={{color: 'white'}}>No players found</Text>
+                </View>
+            </View>
+        </View>;
+    };
+
     render() {
         return (
             <View style={styles.container}>
@@ -160,6 +170,7 @@ export default class SearchPlayer extends Component {
                         <FlatList style={{flex: 1, width: '100%'}}
                                   data={this.state.result}
                                   refreshing={this.state.refreshing}
+                                  ListEmptyComponent={this.noContent}
                                   ListHeaderComponent={this.renderListHeader}
                                   keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) => (

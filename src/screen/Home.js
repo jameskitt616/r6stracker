@@ -66,7 +66,7 @@ export default class Home extends Component {
     noContent = () => {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
-                <View style={{backgroundColor: bgGrayHard, padding: 10, marginTop: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}>
+                <View style={{backgroundColor: bgGrayHard, padding: 15, marginTop: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}>
                     <Text style={{color: 'white'}}>No players added</Text>
                 </View>
             </View>
