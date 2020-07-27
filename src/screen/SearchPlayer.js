@@ -64,6 +64,7 @@ export default class SearchPlayer extends Component {
     };
 
     updateSearchUserName = (searchTxt) => {
+
         this.setState({
             searchTxt: searchTxt,
         });
