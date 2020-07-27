@@ -3,6 +3,7 @@ import React from 'react';
 import PlayerOverview from './src/screen/PlayerOverview';
 import Home from './src/screen/Home';
 import SearchPlayer from './src/screen/SearchPlayer';
+import Settings from './src/screen/Settings';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -20,7 +21,7 @@ export default function App() {
       <NavigationContainer theme={Theme}>
         <Drawer.Navigator initialRouteName="Home">
           <Drawer.Screen name="Home" component={PlayersStack} />
-          <Drawer.Screen name="Settings" component={SearchPlayer} />
+          <Drawer.Screen name="Settings" component={Settings} />
         </Drawer.Navigator>
       </NavigationContainer>
   );
