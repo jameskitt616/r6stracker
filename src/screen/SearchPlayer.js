@@ -88,6 +88,7 @@ export default class SearchPlayer extends Component {
 
     addPlayer = (id) => {
 
+        //TODO: check if player already in DB -> ToastAndroid.show('Something went wrong', 3);
         fetch(`https://r6.apitab.com/player/${id}?cid=${API_KEY}`, {
             method: 'GET',
         })
@@ -144,7 +145,7 @@ export default class SearchPlayer extends Component {
                         selectedIndex={this.state.selectedIndex}
                         buttons={['PC', 'PlayStation', 'Xbox']}
                         // selectedButtonStyle={{backgroundColor: '#E1FF00'}}
-                        selectedButtonStyle={{backgroundColor: '#f68000',}}
+                        selectedButtonStyle={{backgroundColor: '#ffa100',}}
                         containerStyle={{backgroundColor: bgGrayHard, borderColor: bgGrayHard, borderRadius: 5}}
                     />
                 </View>
@@ -175,7 +176,6 @@ export default class SearchPlayer extends Component {
                                   keyExtractor={(item, index) => index.toString()}
                                   renderItem={({item}) => (
                                       <View style={styles.playerList}>
-
                                           <View style={{width: '80%', fontWeight: 'bold'}}>
                                               <View style={{flexDirection: 'row'}}>
                                                   <View style={{width: '15%'}}>

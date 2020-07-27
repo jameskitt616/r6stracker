@@ -22,6 +22,7 @@ export default class Home extends Component {
             refreshing: false,
         };
     }
+
     componentDidMount(): void {
 
         //TODO: grab new player stats

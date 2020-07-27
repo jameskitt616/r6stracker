@@ -10,6 +10,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { Buffer } from 'buffer';
 import {bgGrayLight} from "./src/Enum/colors";
+import {View} from "react-native";
 global.Buffer = Buffer;
 
 const Stack = createStackNavigator();
@@ -20,7 +21,9 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
       <NavigationContainer theme={Theme}>
-        <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Navigator initialRouteName="Home"   drawerStyle={{
+            paddingTop: 30,
+        }}>
           <Drawer.Screen name="Home" component={PlayersStack} />
           <Drawer.Screen name="Settings" component={Settings} />
         </Drawer.Navigator>
