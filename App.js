@@ -14,6 +14,7 @@ global.Buffer = Buffer;
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+//TODO: check if needed
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -35,14 +36,6 @@ const Theme = {
         text: '#FFFFFF',
     },
 };
-
-function PlayerStack() {
-  return (
-      <Tab.Navigator initialRouteName="Player Overview">
-        <Tab.Screen name="Player Overview" component={PlayerOverview} options={props}/>
-      </Tab.Navigator>
-  );
-}
 
 function PlayersStack() {
   return (
