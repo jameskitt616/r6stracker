@@ -67,7 +67,7 @@ export default class Players extends Component {
         return <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={{flex: 1}}>
                 <View style={{backgroundColor: bgGrayHard, padding: 10, marginTop: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}>
-                    <Text style={{color: 'white'}}>No Players added</Text>
+                    <Text style={{color: 'white'}}>No players added</Text>
                 </View>
             </View>
         </View>;

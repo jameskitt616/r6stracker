@@ -119,7 +119,7 @@ export default class SearchPlayer extends Component {
                 <View>
                     <Picker
                         selectedValue={this.state.platform}
-                        style={{height: 50, width: '100%', margin: 5}}
+                        style={{height: 50, width: '100%'}}
                         onValueChange={(itemValue, itemIndex) => this.updatePlatform(itemValue)}
                     >
                         <Picker.Item label="PC" value="uplay"/>
