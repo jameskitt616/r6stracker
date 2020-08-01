@@ -21,11 +21,11 @@ export default class SearchPlayer extends Component {
             platform: 'uplay',
             selectedIndex: 0,
         };
-        this.updateIndex = this.updateIndex.bind(this)
+        this.updateIndex = this.updateIndex.bind(this);
     }
 
     updateIndex (selectedIndex) {
-        this.setState({selectedIndex})
+        this.setState({selectedIndex});
 
         //TODO: on change update search
         if (selectedIndex === 0) {
@@ -144,8 +144,9 @@ export default class SearchPlayer extends Component {
                         onPress={this.updateIndex}
                         selectedIndex={this.state.selectedIndex}
                         buttons={['PC', 'PlayStation', 'Xbox']}
-                        // selectedButtonStyle={{backgroundColor: '#E1FF00'}}
-                        selectedButtonStyle={{backgroundColor: '#ffa100',}}
+                        textStyle={{color: 'white'}}
+                        selectedTextStyle={{color: 'black'}}
+                        selectedButtonStyle={{backgroundColor: '#E1FF00'}}
                         containerStyle={{backgroundColor: bgGrayHard, borderColor: bgGrayHard, borderRadius: 5}}
                     />
                 </View>

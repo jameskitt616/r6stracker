@@ -5,6 +5,8 @@ This is an React Native Android/(iOS not tested because i am on Windows) Tracker
 ## Getting Started
 
     git clone git@gitlab.com:jameskitt616/r6stracker.git
+    
+    rename the EDIT_THIS.env file to .env and add your API Key form https://github.com/Tabwire/R6Tab-API
 
 ### Prerequisites
 
