@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Dimensions, FlatList, Button, TouchableOpacity} from 'react-native';
-import {getPlayerById, mapPlayerRank} from '../Controller/PlayerController';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
+import {getPlayerById} from '../Repository/PlayerRepository';
+import {mapPlayerRank} from '../Controller/PlayerController';
 import Player from "../Entity/Player";
-import {faAngleDoubleUp, faEye, faArrowLeft, faArrowRight, faUserPlus} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDoubleUp, faEye} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {bgGrayHard, bgGrayMid, grayLight} from "../Enum/colors";
 import SwipeableViews from "react-swipeable-views-native/lib";
@@ -51,11 +52,12 @@ export default class PlayerOverview extends Component {
         seasons.reverse();
 
 
-
         let operators = [];
         let ops = this.state.player.operators;
         Object.keys(ops).forEach(function (key) {
             let operator = ops[key];
+            // console.log(ops);
+            // operators.push(ops);
             operators.push(operator);
         });
 
@@ -166,9 +168,39 @@ export default class PlayerOverview extends Component {
                                     margin: 10,
                                     padding: 10,
                                 }}>
-                                    <View>
-                                        <Text>TODO: Implement ops</Text>
-                                    </View>
+                                    {/*<Text>{this.state.operators.Smoke}</Text>*/}
+                                    {console.log(this.state.operators.Zofia)}
+                                    {/*<FlatList data={this.state.player.operators}*/}
+                                    {/*          renderItem={({item}) => (*/}
+                                    {/*              <View style={styles.seasonList}>*/}
+                                    {/*                  <View style={{width: '70%', fontWeight: 'bold'}}>*/}
+                                    {/*                      <View style={{flexDirection: 'row'}}>*/}
+                                    {/*                          <View style={{width: '15%'}}>*/}
+                                    {/*                              {mapPlayerRank(item.maxmmr)}*/}
+                                    {/*                          </View>*/}
+                                    {/*                          <View style={{width: '85%'}}>*/}
+                                    {/*                              <Text style={{*/}
+                                    {/*                                  fontSize: 18,*/}
+                                    {/*                                  color: 'white',*/}
+                                    {/*                                  fontWeight: 'bold',*/}
+                                    {/*                                  paddingTop: 10*/}
+                                    {/*                              }}>{item.}</Text>*/}
+                                    {/*                          </View>*/}
+                                    {/*                      </View>*/}
+                                    {/*                  </View>*/}
+                                    {/*                  <View style={{width: '30%', alignItems: 'flex-end'}}>*/}
+                                    {/*                      <View style={{flexDirection: 'row'}}>*/}
+                                    {/*                          <View style={{width: '50%'}}>*/}
+                                    {/*                              <Text style={{*/}
+                                    {/*                                  color: 'white',*/}
+                                    {/*                                  paddingTop: 10*/}
+                                    {/*                              }}>{item.maxmmr}</Text>*/}
+                                    {/*                          </View>*/}
+                                    {/*                      </View>*/}
+                                    {/*                  </View>*/}
+                                    {/*              </View>*/}
+                                    {/*          )}*/}
+                                    {/*/>*/}
                                 </View>
                             </View>
 

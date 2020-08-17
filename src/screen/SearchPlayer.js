@@ -3,8 +3,8 @@ import {FlatList, StyleSheet, Text, ToastAndroid, TouchableOpacity, View} from '
 import {ButtonGroup, SearchBar} from 'react-native-elements';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft, faUserPlus} from '@fortawesome/free-solid-svg-icons';
-import {createPlayer, mapPlayerRank} from '../Controller/PlayerController';
-import {Picker} from '@react-native-community/picker';
+import {mapPlayerRank} from '../Controller/PlayerController';
+import {createPlayer} from '../Repository/PlayerRepository'
 import {API_KEY} from 'react-native-dotenv';
 import Player from '../Entity/Player';
 import {bgGrayHard, bgGrayLight, bgGrayMid, grayLight} from '../Enum/colors';

@@ -7,7 +7,8 @@ import {
     StyleSheet,
     Alert,
 } from 'react-native';
-import {getAllPlayers, deletePlayer, mapPlayerRank} from '../Controller/PlayerController';
+import {getAllPlayers, deletePlayer} from '../Repository/PlayerRepository';
+import {mapPlayerRank} from '../Controller/PlayerController';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTimesCircle, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons';
 import {bgGrayHard, bgGrayMid, bgGrayLight, grayLight} from '../Enum/colors'
