@@ -6,7 +6,7 @@ import Player from "../Entity/Player";
 import {faAngleDoubleUp, faEye} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {bgGrayHard, bgGrayMid, grayLight} from "../Enum/colors";
-import SwipeableViews from "react-swipeable-views-native/lib";
+import SwipeableViews from "react-swipeable-views-native";
 import {ButtonGroup} from "react-native-elements";
 
 export default class PlayerOverview extends Component {
@@ -51,26 +51,19 @@ export default class PlayerOverview extends Component {
         });
         seasons.reverse();
 
-
         let operators = [];
         let ops = this.state.player.operators;
         Object.keys(ops).forEach(function (key) {
-            let operator = ops[key];
-            // console.log(ops);
-            // operators.push(ops);
+            let operator = {name: key, stats: ops[key]};
             operators.push(operator);
         });
 
         this.setState(prevState => ({
             player: {
                 ...prevState.player,
-                seasons,
+                seasons, operators
             }
         }));
-
-        this.setState({
-            operators: operators,
-        });
     }
 
     calcPlaytime = (time) => {
@@ -160,7 +153,6 @@ export default class PlayerOverview extends Component {
                                 </View>
                             </View>
 
-
                             <View style={{flex: 1, alignItems: 'center'}}>
                                 <View style={{
                                     borderRadius: 6,
@@ -168,39 +160,22 @@ export default class PlayerOverview extends Component {
                                     margin: 10,
                                     padding: 10,
                                 }}>
-                                    {/*<Text>{this.state.operators.Smoke}</Text>*/}
-                                    {console.log(this.state.operators.Zofia)}
-                                    {/*<FlatList data={this.state.player.operators}*/}
-                                    {/*          renderItem={({item}) => (*/}
-                                    {/*              <View style={styles.seasonList}>*/}
-                                    {/*                  <View style={{width: '70%', fontWeight: 'bold'}}>*/}
-                                    {/*                      <View style={{flexDirection: 'row'}}>*/}
-                                    {/*                          <View style={{width: '15%'}}>*/}
-                                    {/*                              {mapPlayerRank(item.maxmmr)}*/}
-                                    {/*                          </View>*/}
-                                    {/*                          <View style={{width: '85%'}}>*/}
-                                    {/*                              <Text style={{*/}
-                                    {/*                                  fontSize: 18,*/}
-                                    {/*                                  color: 'white',*/}
-                                    {/*                                  fontWeight: 'bold',*/}
-                                    {/*                                  paddingTop: 10*/}
-                                    {/*                              }}>{item.}</Text>*/}
-                                    {/*                          </View>*/}
-                                    {/*                      </View>*/}
-                                    {/*                  </View>*/}
-                                    {/*                  <View style={{width: '30%', alignItems: 'flex-end'}}>*/}
-                                    {/*                      <View style={{flexDirection: 'row'}}>*/}
-                                    {/*                          <View style={{width: '50%'}}>*/}
-                                    {/*                              <Text style={{*/}
-                                    {/*                                  color: 'white',*/}
-                                    {/*                                  paddingTop: 10*/}
-                                    {/*                              }}>{item.maxmmr}</Text>*/}
-                                    {/*                          </View>*/}
-                                    {/*                      </View>*/}
-                                    {/*                  </View>*/}
-                                    {/*              </View>*/}
-                                    {/*          )}*/}
-                                    {/*/>*/}
+                                    <FlatList data={this.state.player.operators}
+                                              renderItem={({item}) => (
+                                                  <View style={styles.operatorsList}>
+                                                      <View style={{width: '100%', fontWeight: 'bold'}}>
+                                                          <View style={{flexDirection: 'row'}}>
+                                                              <Text style={{
+                                                                  fontSize: 18,
+                                                                  color: 'white',
+                                                                  fontWeight: 'bold',
+                                                                  paddingTop: 10
+                                                              }}>{item.name}</Text>
+                                                          </View>
+                                                      </View>
+                                                  </View>
+                                              )}
+                                    />
                                 </View>
                             </View>
 
@@ -263,6 +238,17 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
     seasonList: {
+        flexDirection: 'row',
+        padding: 10,
+        marginRight: 10,
+        marginLeft: 10,
+        marginBottom: 10,
+        borderRadius: 5,
+        backgroundColor: bgGrayHard,
+        borderColor: 'white',
+        borderWidth: 1
+    },
+    operatorsList: {
         flexDirection: 'row',
         padding: 10,
         marginRight: 10,

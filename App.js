@@ -6,17 +6,13 @@ import SearchPlayer from './src/screen/SearchPlayer';
 import Settings from './src/screen/Settings';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { Buffer } from 'buffer';
 import {bgGrayLight} from "./src/Enum/colors";
-import {View} from "react-native";
 global.Buffer = Buffer;
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-//TODO: check if needed
-const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
