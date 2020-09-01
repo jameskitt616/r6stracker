@@ -21,6 +21,7 @@ export default function App() {
             paddingTop: 30,
         }}>
           <Drawer.Screen name="Home" component={PlayersStack} />
+          <Drawer.Screen name="Leaderboard" component={PlayersStack} />
           <Drawer.Screen name="Settings" component={Settings} />
         </Drawer.Navigator>
       </NavigationContainer>
@@ -46,7 +47,6 @@ function PlayersStack() {
             headerShown: false
         }}/>
         <Stack.Screen name="Player" component={PlayerOverview} options={{
-            title: '',
             headerStyle: {
                 backgroundColor: bgGrayLight
             },

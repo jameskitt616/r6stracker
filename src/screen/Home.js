@@ -111,7 +111,7 @@ export default class Home extends Component {
                                                           }}>{JSON.parse(item.player)['p_name']}</Text>
                                                           <Text>
                                                               <Text style={{color: grayLight}}>lvl: </Text><Text style={{color: 'white'}}>{JSON.parse(item.stats)['level']} </Text>
-                                                              <Text style={{color: grayLight}}>mmr: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['EU_actualmmr']} </Text>
+                                                              <Text style={{color: grayLight}}>mmr: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['mmr']} </Text>
                                                               <Text style={{color: grayLight}}>K/D: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['kd']}</Text>
                                                           </Text>
                                                       </View>

@@ -47,11 +47,18 @@ export default class SearchPlayer extends Component {
         this.fetchSearch();
     }
 
+    getCurrentTime = () => {
+
+        return new Date().getTime() / 1000;
+    }
+
     fetchSearch = () => {
 
         if (this.state.searchTxt) {
 
-            fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}`, {
+            // fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}?u=${this.getCurrentTime}`, {
+            fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}&u=${this.getCurrentTime}`, {
+            // fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}`, {
                 method: 'GET',
             })
                 .then(response => response.json())
@@ -89,7 +96,10 @@ export default class SearchPlayer extends Component {
     addPlayer = (id) => {
 
         //TODO: check if player already in DB -> ToastAndroid.show('Something went wrong', 3);
-        fetch(`https://r6.apitab.com/player/${id}?cid=${API_KEY}`, {
+
+        // fetch(`https://r6.apitab.com/player/${id}?cid=${API_KEY}?u=${this.getCurrentTime}`, {
+        fetch(`https://r6.apitab.com/player/${id}?cid=${API_KEY}&u=${this.getCurrentTime}`, {
+        // fetch(`https://r6.apitab.com/player/${id}?cid=${API_KEY}`, {
             method: 'GET',
         })
             .then(response => response.json())

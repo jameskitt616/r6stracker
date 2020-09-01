@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, FlatList} from 'react-native';
+import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import {getPlayerById} from '../Repository/PlayerRepository';
 import {mapPlayerRank} from '../Controller/PlayerController';
 import Player from "../Entity/Player";
-import {faAngleDoubleUp, faEye} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDoubleUp, faEye, faClock} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {bgGrayHard, bgGrayMid, grayLight} from "../Enum/colors";
 import SwipeableViews from "react-swipeable-views-native";
@@ -64,6 +64,8 @@ export default class PlayerOverview extends Component {
                 seasons, operators
             }
         }));
+
+        this.props.navigation.setOptions({title: this.state.player.player.p_name})
     }
 
     calcPlaytime = (time) => {
@@ -108,11 +110,6 @@ export default class PlayerOverview extends Component {
                                     <View style={{alignItems: 'center'}}>
                                         {mapPlayerRank(this.state.player.ranked.mmr)}
                                     </View>
-                                    <Text style={{
-                                        color: 'white',
-                                        fontSize: 25,
-                                        textAlign: 'center'
-                                    }}>{this.state.player.player.p_name}</Text>
                                     <View style={{alignItems: 'center'}}>
                                         <View style={{flexDirection: 'row'}}>
                                             <FontAwesomeIcon icon={faAngleDoubleUp} size={20}
@@ -130,20 +127,26 @@ export default class PlayerOverview extends Component {
                                         </View>
                                         {/*TODO: show current unranked mmr if unranked*/}
                                         <Text style={styles.text}>Current
-                                            MMR: {this.state.player.ranked.EU_actualmmr}</Text>
+                                            MMR: {this.state.player.ranked.mmr}</Text>
                                         <Text style={styles.text}>Overall
                                             Playtime: {this.calcPlaytime(this.state.player.stats.generalpvp_timeplayed)}H</Text>
                                     </View>
 
-                                    <View style={{flexDirection: 'row', padding: 5}}>
-                                        <View style={{width: '50%'}}>
+                                    <View style={{flexDirection: 'row', padding: 5, marginTop: 30}}>
+                                        <View style={{width: '33%'}}>
                                             <Text
                                                 style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Casual</Text>
                                             <Text style={styles.text}>K/D: {this.state.player.stats.casualpvp_kd}</Text>
                                             <Text style={styles.text}>W/L: {this.state.player.stats.casualpvp_wl}</Text>
                                         </View>
 
-                                        <View style={{width: '50%', alignItems: 'flex-end'}}>
+                                        <View style={{width: '33%'}}>
+                                            <Image
+                                                source={{uri: `https://ubisoft-avatars.akamaized.net/${this.state.player.player.p_id}/default_256_256.png`}}
+                                                style={{width: 100, height: 100, borderRadius: 10}}/>
+                                        </View>
+
+                                        <View style={{width: '33%', alignItems: 'flex-end'}}>
                                             <Text
                                                 style={{color: 'white', fontSize: 20, fontWeight: 'bold'}}>Ranked</Text>
                                             <Text style={styles.text}>K/D: {this.state.player.stats.rankedpvp_kd}</Text>
@@ -154,71 +157,71 @@ export default class PlayerOverview extends Component {
                             </View>
 
                             <View style={{flex: 1, alignItems: 'center'}}>
-                                <View style={{
-                                    borderRadius: 6,
-                                    backgroundColor: bgGrayHard,
-                                    margin: 10,
-                                    padding: 10,
-                                }}>
-                                    <FlatList data={this.state.player.operators}
-                                              renderItem={({item}) => (
-                                                  <View style={styles.operatorsList}>
-                                                      <View style={{width: '100%', fontWeight: 'bold'}}>
-                                                          <View style={{flexDirection: 'row'}}>
+                                <FlatList data={this.state.player.operators}
+                                          renderItem={({item}) => (
+                                              <View style={styles.list}>
+                                                  <View style={{width: '50%', fontWeight: 'bold'}}>
+                                                      <View style={{flexDirection: 'row'}}>
+                                                          <View style={{width: '85%'}}>
                                                               <Text style={{
                                                                   fontSize: 18,
                                                                   color: 'white',
                                                                   fontWeight: 'bold',
-                                                                  paddingTop: 10
+                                                                  paddingTop: 7
                                                               }}>{item.name}</Text>
                                                           </View>
                                                       </View>
                                                   </View>
-                                              )}
-                                    />
-                                </View>
-                            </View>
-
-
-                            <View style={{flex: 1, alignItems: 'center'}}>
-                                <View style={{
-                                    borderRadius: 6,
-                                    backgroundColor: bgGrayHard,
-                                    margin: 10,
-                                    padding: 10,
-                                }}>
-                                    <FlatList data={this.state.player.seasons}
-                                              renderItem={({item}) => (
-                                                  <View style={styles.seasonList}>
-                                                      <View style={{width: '70%', fontWeight: 'bold'}}>
-                                                          <View style={{flexDirection: 'row'}}>
-                                                              <View style={{width: '15%'}}>
-                                                                  {mapPlayerRank(item.maxmmr)}
-                                                              </View>
-                                                              <View style={{width: '85%'}}>
-                                                                  <Text style={{
-                                                                      fontSize: 18,
-                                                                      color: 'white',
-                                                                      fontWeight: 'bold',
-                                                                      paddingTop: 10
-                                                                  }}>{item.seasonname}</Text>
-                                                              </View>
-                                                          </View>
-                                                      </View>
-                                                      <View style={{width: '30%', alignItems: 'flex-end'}}>
-                                                          <View style={{flexDirection: 'row'}}>
-                                                              <View style={{width: '50%'}}>
-                                                                  <Text style={{
-                                                                      color: 'white',
-                                                                      paddingTop: 10
-                                                                  }}>{item.maxmmr}</Text>
-                                                              </View>
+                                                  <View style={{width: '50%', alignItems: 'flex-end'}}>
+                                                      <View style={{flexDirection: 'row'}}>
+                                                          <View style={{width: '50%'}}>
+                                                              <Text style={{color: 'white'}}>
+                                                                  K/D: {item.stats.overall.kd}
+                                                              </Text>
+                                                              <Text style={{color: 'white'}}>
+                                                                  <FontAwesomeIcon icon={faClock} size={12}
+                                                                                   color={grayLight}/> {this.calcPlaytime(item.stats.overall.timeplayed)}H
+                                                              </Text>
                                                           </View>
                                                       </View>
                                                   </View>
-                                              )}
-                                    />
-                                </View>
+                                              </View>
+                                          )}
+                                />
+                            </View>
+
+                            <View style={{flex: 1, alignItems: 'center'}}>
+                                <FlatList data={this.state.player.seasons}
+                                          renderItem={({item}) => (
+                                              <View style={styles.list}>
+                                                  <View style={{width: '70%', fontWeight: 'bold'}}>
+                                                      <View style={{flexDirection: 'row'}}>
+                                                          <View style={{width: '15%'}}>
+                                                              {mapPlayerRank(item.maxmmr)}
+                                                          </View>
+                                                          <View style={{width: '85%'}}>
+                                                              <Text style={{
+                                                                  fontSize: 18,
+                                                                  color: 'white',
+                                                                  fontWeight: 'bold',
+                                                                  paddingTop: 9
+                                                              }}>{item.seasonname}</Text>
+                                                          </View>
+                                                      </View>
+                                                  </View>
+                                                  <View style={{width: '30%', alignItems: 'flex-end'}}>
+                                                      <View style={{flexDirection: 'row'}}>
+                                                          <View style={{width: '50%'}}>
+                                                              <Text style={{
+                                                                  color: 'white',
+                                                                  paddingTop: 10
+                                                              }}>{item.maxmmr}</Text>
+                                                          </View>
+                                                      </View>
+                                                  </View>
+                                              </View>
+                                          )}
+                                />
                             </View>
                         </SwipeableViews>
                     </View>
@@ -237,7 +240,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 15,
     },
-    seasonList: {
+    list: {
         flexDirection: 'row',
         padding: 10,
         marginRight: 10,
@@ -245,18 +248,5 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderRadius: 5,
         backgroundColor: bgGrayHard,
-        borderColor: 'white',
-        borderWidth: 1
-    },
-    operatorsList: {
-        flexDirection: 'row',
-        padding: 10,
-        marginRight: 10,
-        marginLeft: 10,
-        marginBottom: 10,
-        borderRadius: 5,
-        backgroundColor: bgGrayHard,
-        borderColor: 'white',
-        borderWidth: 1
     },
 });
