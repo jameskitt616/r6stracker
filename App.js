@@ -1,9 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import PlayerOverview from './src/screen/PlayerOverview';
-import Home from './src/screen/Home';
+import PlayerList from './src/screen/PlayerList';
 import SearchPlayer from './src/screen/SearchPlayer';
 import Settings from './src/screen/Settings';
+import Leaderboard from "./src/screen/Leaderboard";
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
@@ -17,11 +18,11 @@ const Drawer = createDrawerNavigator();
 export default function App() {
   return (
       <NavigationContainer theme={Theme}>
-        <Drawer.Navigator initialRouteName="Home"   drawerStyle={{
+        <Drawer.Navigator initialRouteName="PlayerList"   drawerStyle={{
             paddingTop: 30,
         }}>
           <Drawer.Screen name="Home" component={PlayersStack} />
-          <Drawer.Screen name="Leaderboard" component={PlayersStack} />
+          <Drawer.Screen name="Leaderboard" component={Leaderboard} />
           <Drawer.Screen name="Settings" component={Settings} />
         </Drawer.Navigator>
       </NavigationContainer>
@@ -39,8 +40,8 @@ const Theme = {
 
 function PlayersStack() {
   return (
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} options={{
+      <Stack.Navigator initialRouteName="PlayerList">
+        <Stack.Screen name="Home" component={PlayerList} options={{
             headerShown: false
         }} />
         <Stack.Screen name="Search player" component={SearchPlayer} options={{

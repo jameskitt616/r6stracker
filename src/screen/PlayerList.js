@@ -13,13 +13,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTimesCircle, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons';
 import {bgGrayHard, bgGrayMid, bgGrayLight, grayLight} from '../Enum/colors'
 
-export default class Home extends Component {
+export default class PlayerList extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            realm: getAllPlayers(),
+            players: getAllPlayers(),
             refreshing: false,
         };
     }
@@ -40,15 +40,15 @@ export default class Home extends Component {
 
     removeUser = (user) => {
 
-        // let realm = this.state.realm;
+        // let players = this.state.players;
         // this.setState({
-        //     realm: realm.slice().filter(realm => realm.id !== user.id),
+        //     players: players.slice().filter(players => players.id !== user.id),
         // });
 
         deletePlayer(user);
 
         this.setState({
-            realm: getAllPlayers(),
+            players: getAllPlayers(),
         });
     };
 
@@ -88,7 +88,7 @@ export default class Home extends Component {
                     <View style={{flex: 1}}>
                         <View style={{flex: 1, alignItems: 'center', backgroundColor: bgGrayMid}}>
                             <FlatList style={{flex: 1, width: '100%'}}
-                                      data={this.state.realm}
+                                      data={this.state.players}
                                       refreshing={this.state.refreshing}
                                       onRefresh={this.handleRefresh}
                                       ListEmptyComponent={this.noContent}
