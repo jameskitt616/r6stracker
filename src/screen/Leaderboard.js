@@ -85,6 +85,7 @@ export default class Leaderboard extends Component {
         this.setState({selectedIndex});
 
         //TODO: on change update search
+        //TODO: switchcase?
         if (selectedIndex === 0) {
             this.setState({
                 platform: 'uplay',
