@@ -27,46 +27,49 @@ export default class SearchPlayer extends Component {
     updateIndex (selectedIndex) {
         this.setState({selectedIndex});
 
-        //TODO: on change update search
-        //TODO: switchcase?
-        if (selectedIndex === 0) {
-            this.setState({
-                platform: 'uplay',
-            });
-        }
-        if (selectedIndex === 1) {
-            this.setState({
-                platform: 'psn',
-            });
-        }
-        if (selectedIndex === 2) {
-            this.setState({
-                platform: 'xbl',
-            });
+        let plattform = 'uplay';
+
+        switch (selectedIndex) {
+            case 0:
+                this.setState({
+                    platform: 'uplay',
+                });
+                plattform = 'uplay';
+                break;
+            case 1:
+                this.setState({
+                    platform: 'psn',
+                });
+                plattform = 'psn';
+                break;
+            case 2:
+                this.setState({
+                    platform: 'xbl',
+                });
+                plattform = 'xbl';
+                break;
         }
 
-        this.fetchSearch();
+        fetch(`https://r6.apitab.com/search/${plattform}/${this.state.searchTxt}?cid=${API_KEY}&u=${this.getCurrentTime}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then((responseJson) => {
 
-        // fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}&u=${this.getCurrentTime}`, {
-        //     method: 'GET',
-        // })
-        //     .then(response => response.json())
-        //     .then((responseJson) => {
-        //
-        //         let playersJson = responseJson.players;
-        //         let players = [];
-        //
-        //         Object.keys(playersJson).forEach(function (key) {
-        //             let responsePlayer = playersJson[key];
-        //             players.push(responsePlayer);
-        //         });
-        //
-        //         this.setState({
-        //             result: players,
-        //         });
-        //
-        //     })
-        //     .catch(error => ToastAndroid.show(error));
+                let playersJson = responseJson.players;
+                let players = [];
+
+                Object.keys(playersJson).forEach(function (key) {
+                    let responsePlayer = playersJson[key];
+                    players.push(responsePlayer);
+                });
+
+                this.setState({
+                    result: players,
+                });
+
+            })
+            .catch(error => ToastAndroid.show(error));
     }
 
     getCurrentTime = () => {
