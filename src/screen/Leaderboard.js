@@ -53,7 +53,6 @@ export default class Leaderboard extends Component {
             .then(response => response.json())
             .then((responseJson) => {
 
-
                 console.log(responseJson);
                 //TODO: foreach op
 

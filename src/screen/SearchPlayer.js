@@ -45,6 +45,27 @@ export default class SearchPlayer extends Component {
         }
 
         this.fetchSearch();
+
+        // fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}&u=${this.getCurrentTime}`, {
+        //     method: 'GET',
+        // })
+        //     .then(response => response.json())
+        //     .then((responseJson) => {
+        //
+        //         let playersJson = responseJson.players;
+        //         let players = [];
+        //
+        //         Object.keys(playersJson).forEach(function (key) {
+        //             let responsePlayer = playersJson[key];
+        //             players.push(responsePlayer);
+        //         });
+        //
+        //         this.setState({
+        //             result: players,
+        //         });
+        //
+        //     })
+        //     .catch(error => ToastAndroid.show(error));
     }
 
     getCurrentTime = () => {
@@ -56,9 +77,7 @@ export default class SearchPlayer extends Component {
 
         if (this.state.searchTxt) {
 
-            // fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}?u=${this.getCurrentTime}`, {
             fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}&u=${this.getCurrentTime}`, {
-            // fetch(`https://r6.apitab.com/search/${this.state.platform}/${this.state.searchTxt}?cid=${API_KEY}`, {
                 method: 'GET',
             })
                 .then(response => response.json())
@@ -97,9 +116,7 @@ export default class SearchPlayer extends Component {
 
         //TODO: check if player already in DB -> ToastAndroid.show('Something went wrong', 3);
 
-        // fetch(`https://r6.apitab.com/player/${id}?cid=${API_KEY}?u=${this.getCurrentTime}`, {
         fetch(`https://r6.apitab.com/player/${id}?cid=${API_KEY}&u=${this.getCurrentTime}`, {
-        // fetch(`https://r6.apitab.com/player/${id}?cid=${API_KEY}`, {
             method: 'GET',
         })
             .then(response => response.json())

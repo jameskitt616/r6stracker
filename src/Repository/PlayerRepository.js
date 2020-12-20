@@ -47,7 +47,6 @@ export const savePlayer = (updatedPlayer) => {
     realm.write(() => {
 
         currentPlayer.name = updatedPlayer.name;
-        ToastAndroid.show('Player has been updated', 3);
     });
 };
 

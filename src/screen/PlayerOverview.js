@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
 import {getPlayerById} from '../Repository/PlayerRepository';
 import {mapPlayerRank} from '../Controller/PlayerController';
 import Player from "../Entity/Player";
-import {faAngleDoubleUp, faEye, faClock} from '@fortawesome/free-solid-svg-icons';
+import {faAngleDoubleUp, faClock} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {bgGrayHard, bgGrayMid, grayLight} from "../Enum/colors";
 import SwipeableViews from "react-swipeable-views-native";
@@ -74,6 +74,15 @@ export default class PlayerOverview extends Component {
         return nonShortedTime.toFixed(1);
     };
 
+    isPlayerBanned = (banned) => {
+
+        if (banned) {
+            return 'Yes';
+        }
+
+        return 'No';
+    };
+
     updateIndex(selectedIndex) {
         this.setState({selectedIndex});
 
@@ -120,8 +129,6 @@ export default class PlayerOverview extends Component {
                                                              color={grayLight}/>
                                         </View>
                                         <View style={{flexDirection: 'row'}}>
-                                            <FontAwesomeIcon icon={faEye} size={20}
-                                                             color={grayLight}/>
                                             <Text style={styles.text}>Profile
                                                 Visitors: {this.state.player.custom.visitors}</Text>
                                         </View>
@@ -130,6 +137,9 @@ export default class PlayerOverview extends Component {
                                             MMR: {this.state.player.ranked.mmr}</Text>
                                         <Text style={styles.text}>Overall
                                             Playtime: {this.calcPlaytime(this.state.player.stats.generalpvp_timeplayed)}H</Text>
+                                        <Text style={styles.text}>Playing
+                                            since: {this.state.player.custom.firstplayed}</Text>
+                                        <Text style={styles.text}>Banned: {this.isPlayerBanned(this.state.player.custom.banned)}</Text>
                                     </View>
 
                                     <View style={{flexDirection: 'row', padding: 5, marginTop: 30}}>

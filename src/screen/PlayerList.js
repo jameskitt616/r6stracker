@@ -5,13 +5,15 @@ import {
     FlatList,
     TouchableOpacity,
     StyleSheet,
-    Alert,
+    Alert, ToastAndroid,
 } from 'react-native';
-import {getAllPlayers, deletePlayer} from '../Repository/PlayerRepository';
+import {getAllPlayers, deletePlayer, savePlayer} from '../Repository/PlayerRepository';
 import {mapPlayerRank} from '../Controller/PlayerController';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faTimesCircle, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons';
 import {bgGrayHard, bgGrayMid, bgGrayLight, grayLight} from '../Enum/colors'
+import {API_KEY} from "react-native-dotenv";
+import Player from "../Entity/Player";
 
 export default class PlayerList extends Component {
 
@@ -26,17 +28,60 @@ export default class PlayerList extends Component {
 
     componentDidMount(): void {
 
-        //TODO: grab new player stats
+        this.handleRefresh();
     }
 
     handleRefresh = () => {
 
+        let players = getAllPlayers()
+
+        for (let player of players) {
+            let p = JSON.parse(player['player']);
+            this.updatePlayer(p.p_id)
+        }
+
         this.setState({
-            // refreshing: true,
-        }, () => {
-            getAllPlayers();
+            players: getAllPlayers(),
         });
+
+        ToastAndroid.show('Players has been updated', 3);
     };
+
+    updatePlayer (id)  {
+
+        fetch(`https://r6.apitab.com/player/${id}?cid=${API_KEY}&u=${this.getCurrentTime}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then((responseJson) => {
+
+                var p = responseJson;
+                var player = new Player(
+                    p['player'].p_id,
+                    JSON.stringify(p['player']),
+                    JSON.stringify(p['custom']),
+                    JSON.stringify(p['refresh']),
+                    JSON.stringify(p['aliases']),
+                    JSON.stringify(p['stats']),
+                    JSON.stringify(p['ranked']),
+                    JSON.stringify(p['social']),
+                    JSON.stringify(p['operators']),
+                    JSON.stringify(p['overlay']),
+                    JSON.stringify(p['history']),
+                    JSON.stringify(p['seasons']),
+                    JSON.stringify(p['op_main']),
+                );
+
+                savePlayer(player);
+
+            })
+            .catch(error => ToastAndroid.show(error));
+    };
+
+    getCurrentTime = () => {
+
+        return new Date().getTime() / 1000;
+    }
 
     removeUser = (user) => {
 
