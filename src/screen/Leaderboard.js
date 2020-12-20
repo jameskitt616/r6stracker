@@ -2,19 +2,16 @@ import React, {Component} from 'react';
 import {
     View,
     Text,
-    FlatList,
     TouchableOpacity,
     StyleSheet,
-    Alert, ToastAndroid,
+    ToastAndroid, FlatList,
 } from 'react-native';
-import {mapPlayerRank} from '../Controller/PlayerController';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faTimesCircle, faUserPlus, faBars } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faBars} from '@fortawesome/free-solid-svg-icons';
 import {bgGrayHard, bgGrayMid, bgGrayLight, grayLight} from '../Enum/colors'
 import {API_KEY} from "react-native-dotenv";
-import Player from "../Entity/Player";
-import {createPlayer} from "../Repository/PlayerRepository";
 import {ButtonGroup} from "react-native-elements";
+import {mapPlayerRank} from "../Controller/PlayerController";
 
 export default class Leaderboard extends Component {
 
@@ -36,15 +33,6 @@ export default class Leaderboard extends Component {
         this.getPlayer();
     }
 
-    handleRefresh = () => {
-
-        this.setState({
-            // refreshing: true,
-        }, () => {
-            this.getPlayer();
-        });
-    };
-
     getPlayer = () => {
 
         fetch(`https://r6.apitab.com/leaderboards/${this.state.platform}/${this.state.region}/?cid=${API_KEY}&u=${this.getCurrentTime}`, {
@@ -53,7 +41,14 @@ export default class Leaderboard extends Component {
             .then(response => response.json())
             .then((responseJson) => {
 
-                console.log(responseJson);
+                let playersJson = responseJson.players;
+                let players = [];
+
+                Object.keys(playersJson).forEach(function (key) {
+                    let responsePlayer = playersJson[key];
+                    players.push(responsePlayer);
+                });
+
                 //TODO: foreach op
 
                 // var p = responseJson;
@@ -73,61 +68,60 @@ export default class Leaderboard extends Component {
                 //     JSON.stringify(p['op_main']),
                 // );
 
-                // this.setState({
-                //     players: players,
-                // });
+                this.setState({
+                    players: players,
+                });
             })
             .catch(error => ToastAndroid.show(error));
     };
 
-    updateIndex (selectedIndex) {
+    updateIndex(selectedIndex) {
         this.setState({selectedIndex});
 
-        //TODO: on change update search
+        let plattform = this.state.platform;
+
         switch (selectedIndex) {
             case 0:
                 this.setState({
                     platform: 'uplay',
                 });
+                plattform = 'uplay';
                 break;
             case 1:
                 this.setState({
                     platform: 'psn',
                 });
+                plattform = 'psn';
                 break;
             case 2:
                 this.setState({
                     platform: 'xbl',
                 });
+                plattform = 'xbl';
                 break;
         }
 
-        this.fetchSearch();
+        fetch(`https://r6.apitab.com/leaderboards/${this.state.platform}/${this.state.region}/?cid=${API_KEY}&u=${this.getCurrentTime}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then((responseJson) => {
+
+                let playersJson = responseJson.players;
+                let players = [];
+
+                Object.keys(playersJson).forEach(function (key) {
+                    let responsePlayer = playersJson[key];
+                    players.push(responsePlayer);
+                });
+
+                this.setState({
+                    result: players,
+                });
+
+            })
+            .catch(error => ToastAndroid.show(error));
     }
-
-
-    renderListHeader = () => {
-        return <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{flex: 1}}>
-                <View>
-                    <TouchableOpacity style={{backgroundColor: bgGrayHard, padding: 10, marginTop: 10, marginBottom: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}
-                                      onPress={() => this.props.navigation.navigate('Search player')}>
-                        <FontAwesomeIcon icon={faUserPlus} size={30} color={'white'}/>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>;
-    };
-
-    noContent = () => {
-        return <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={{flex: 1}}>
-                <View style={{backgroundColor: bgGrayHard, padding: 15, marginTop: 10, marginLeft: 10, marginRight: 10, borderRadius: 5, alignItems: 'center'}}>
-                    <Text style={{color: 'white'}}>No players added</Text>
-                </View>
-            </View>
-        </View>;
-    };
 
     render() {
         return (
@@ -136,7 +130,7 @@ export default class Leaderboard extends Component {
                     <View style={{flexDirection: 'row', backgroundColor: bgGrayLight}}>
                         <TouchableOpacity style={{marginTop: 7, marginBottom: 5, marginLeft: 10}}
                                           onPress={this.props.navigation.openDrawer}>
-                            <FontAwesomeIcon icon={ faBars } size={25} />
+                            <FontAwesomeIcon icon={faBars} size={25}/>
                         </TouchableOpacity>
                     </View>
                     <ButtonGroup
@@ -148,63 +142,41 @@ export default class Leaderboard extends Component {
                         selectedButtonStyle={{backgroundColor: '#E1FF00'}}
                         containerStyle={{backgroundColor: bgGrayHard, borderColor: bgGrayHard, borderRadius: 5}}
                     />
-                    {/*<View style={{flex: 1}}>*/}
-                    {/*    <View style={{flex: 1, alignItems: 'center', backgroundColor: bgGrayMid}}>*/}
-                    {/*        <FlatList style={{flex: 1, width: '100%'}}*/}
-                    {/*                  data={this.state.players}*/}
-                    {/*                  refreshing={this.state.refreshing}*/}
-                    {/*                  onRefresh={this.handleRefresh}*/}
-                    {/*                  ListEmptyComponent={this.noContent}*/}
-                    {/*                  ListHeaderComponent={this.renderListHeader}*/}
-                    {/*                  keyExtractor={(item, index) => index.toString()}*/}
-                    {/*                  renderItem={({item}) => (*/}
-                    {/*                      <TouchableOpacity style={styles.playerList} onPress={() => this.props.navigation.navigate('Player', {*/}
-                    {/*                          playerId: item.id,*/}
-                    {/*                      })}>*/}
-                    {/*                          <View style={{width: '80%', fontWeight: 'bold'}}>*/}
-                    {/*                              <View style={{flexDirection: 'row',}}>*/}
-                    {/*                                  <View style={{width: '15%'}}>*/}
-                    {/*                                      {mapPlayerRank(JSON.parse(item.ranked)['mmr'])}*/}
-                    {/*                                  </View>*/}
-                    {/*                                  <View style={{width: '85%'}}>*/}
-                    {/*                                      <Text style={{*/}
-                    {/*                                          fontSize: 18,*/}
-                    {/*                                          color: 'white',*/}
-                    {/*                                          fontWeight: 'bold'*/}
-                    {/*                                      }}>{JSON.parse(item.player)['p_name']}</Text>*/}
-                    {/*                                      <Text>*/}
-                    {/*                                          <Text style={{color: grayLight}}>lvl: </Text><Text style={{color: 'white'}}>{JSON.parse(item.stats)['level']} </Text>*/}
-                    {/*                                          <Text style={{color: grayLight}}>mmr: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['mmr']} </Text>*/}
-                    {/*                                          <Text style={{color: grayLight}}>K/D: </Text><Text style={{color: 'white'}}>{JSON.parse(item.ranked)['kd']}</Text>*/}
-                    {/*                                      </Text>*/}
-                    {/*                                  </View>*/}
-                    {/*                              </View>*/}
-                    {/*                          </View>*/}
-                    {/*                          PlayerList.js<View style={{width: '20%', alignItems: 'flex-end'}}>*/}
-                    {/*                              <TouchableOpacity*/}
-                    {/*                                  style={{alignItems: 'flex-start', marginTop: 12, marginLeft: 10}}*/}
-                    {/*                                  onPress={() => Alert.alert(*/}
-                    {/*                                      'Warning',*/}
-                    {/*                                      `Would you like to remove "${JSON.parse(item.player)['p_name']}" from your favourites?`,*/}
-                    {/*                                      [*/}
-                    {/*                                          {*/}
-                    {/*                                              text: 'No',*/}
-                    {/*                                              style: 'cancel',*/}
-                    {/*                                          },*/}
-                    {/*                                          {*/}
-                    {/*                                              text: 'Yes',*/}
-                    {/*                                              onPress: () => this.removeUser(item),*/}
-                    {/*                                          },*/}
-                    {/*                                      ],*/}
-                    {/*                                  )}>*/}
-                    {/*                                  <FontAwesomeIcon icon={ faTimesCircle } size={20} color={"red"}/>*/}
-                    {/*                              </TouchableOpacity>*/}
-                    {/*                          </View>*/}
-                    {/*                      </TouchableOpacity>*/}
-                    {/*                  )}*/}
-                    {/*        />*/}
-                    {/*    </View>*/}
-                    {/*</View>*/}
+                    <View style={{flex: 1}}>
+                        <View style={{flex: 1, alignItems: 'center', backgroundColor: bgGrayMid}}>
+                            <FlatList style={{flex: 1, width: '100%'}}
+                                      data={this.state.players}
+                                      refreshing={this.state.refreshing}
+                                      keyExtractor={(item, index) => index.toString()}
+                                      renderItem={({item}) => (
+                                          <View style={styles.playerList}>
+                                              <View style={{width: '100%', fontWeight: 'bold'}}>
+                                                  <View style={{flexDirection: 'row'}}>
+                                                      <View style={{width: '15%'}}>
+                                                          {mapPlayerRank(item.ranked.mmr)}
+                                                      </View>
+                                                      <View style={{width: '85%'}}>
+                                                          <Text style={{
+                                                              fontSize: 18,
+                                                              color: 'white',
+                                                              fontWeight: 'bold',
+                                                          }}>{item.profile.p_name}</Text>
+                                                          <Text>
+                                                              <Text style={{color: grayLight}}>lvl: </Text><Text
+                                                              style={{color: 'white'}}>{item.stats.level} </Text>
+                                                              <Text style={{color: grayLight}}>mmr: </Text><Text
+                                                              style={{color: 'white'}}>{item.ranked.mmr} </Text>
+                                                              <Text style={{color: grayLight}}>K/D: </Text><Text
+                                                              style={{color: 'white'}}>{item.ranked.kd}</Text>
+                                                          </Text>
+                                                      </View>
+                                                  </View>
+                                              </View>
+                                          </View>
+                                      )}
+                            />
+                        </View>
+                    </View>
                 </View>
             </View>
         );

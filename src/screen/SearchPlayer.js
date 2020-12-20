@@ -27,7 +27,7 @@ export default class SearchPlayer extends Component {
     updateIndex (selectedIndex) {
         this.setState({selectedIndex});
 
-        let plattform = 'uplay';
+        let plattform = this.state.platform;
 
         switch (selectedIndex) {
             case 0:
