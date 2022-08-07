@@ -1,10 +1,12 @@
 # R6STracker
 
+# This APP is no longer maintained due the API got shut down
+
 This is a React Native Android Tracker App project for Tom Clancy's Rainbow Six Siege | Ubisoft®.
 
 ## Getting Started
 
-    git clone git@gitlab.com:jameskitt616/r6stracker.git
+    git clone git@github.com:jameskitt616/r6stracker.git
     
     rename the EDIT_THIS.env file to .env and add your API Key from https://github.com/Tabwire/R6Tab-API
 
