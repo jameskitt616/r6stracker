@@ -22,7 +22,7 @@ export default class Leaderboard extends Component {
             players: null,
             refreshing: false,
             platform: 'windows',
-            region: 'europe',
+            region: 'america',
             selectedIndex: 0,
         };
         this.updateIndex = this.updateIndex.bind(this);
@@ -46,6 +46,7 @@ export default class Leaderboard extends Component {
 
                 Object.keys(playersJson).forEach(function (key) {
                     let responsePlayer = playersJson[key];
+                    console.log(responsePlayer);
                     players.push(responsePlayer);
                 });
 
@@ -153,7 +154,7 @@ export default class Leaderboard extends Component {
                                               <View style={{width: '100%', fontWeight: 'bold'}}>
                                                   <View style={{flexDirection: 'row'}}>
                                                       <View style={{width: '15%'}}>
-                                                          {mapPlayerRank(item.ranked.mmr)}
+                                                          {mapPlayerRank(item.ranked.NA_mmr)}
                                                       </View>
                                                       <View style={{width: '85%'}}>
                                                           <Text style={{
